@@ -1,0 +1,325 @@
+body {
+  padding-top: 35px;
+}
+
+h1 {
+  font-family: 'Open Sans';
+  font-weight: 400;
+}
+
+ul.courses{
+  background-color: #2973bd;
+  font-family: 'Open Sans';
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.navbar-brand {
+  font-family: 'Open Sans';
+  font-size: 22px;
+  font-weight: 600;
+  padding-right: 50%;
+  text-align: center;
+}
+
+.courses {
+  font-size: 22px;
+}
+
+.repeatNote p {
+  font-size: 12px;
+  margin-top: 15px;
+}
+
+.changePassword {
+  margin-top: 50px;
+}
+
+.changePassword h3 {
+  margin-bottom: 15px;
+}
+
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+  background-color:rgba(0,0,0,0.1);
+}
+
+.displayWord p {
+  font-size: 36px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.courseTopContainer {
+  text-align:center;
+}
+
+.courseTopContainer h3 {
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 40px;
+
+}
+
+.Course-button {
+    background-color: #4CAF70;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.userDataButtonsHolder .Course-button {
+  text-align: center;
+  margin: 10px;
+  width: 200px;
+}
+
+.Course-resetButton {
+    background-color: #f32f07;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    width: 60px;
+    height: 30px;
+    text-align: center;
+    text-decoration: none;
+    padding: 0px;
+    margin-bottom: 20px;
+    font-size: 10px;
+}
+
+.Repeat-button {
+  background-color: #4CAF70;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  text-align: center;
+  display: inline-block;
+
+}
+
+.Repeat-button:hover {
+  background-color: #4CAF50;
+}
+
+.Course-button:hover {
+	background-color: #4CAF50;
+}
+
+.progress {
+    position: relative;
+}
+
+.progress .bar {
+    z-index: 1;
+    position: absolute;
+}
+
+.progress span {
+    position: absolute;
+    top: 0;
+    z-index: 2;
+    color: black;
+    text-align: center;
+    width: 100%;
+    display: block;
+}
+
+.levelContainer {
+  text-align:center;
+}
+
+.userDataButtonsHolder {
+  display: table;
+  margin: 0 auto;
+}
+
+.ChapterProgress-container {
+  width: 100%;
+}
+
+.AnswerHistory-container {
+  width: 100%;
+}
+
+.charOverview-container {
+  width: 100%;
+}
+
+.table-responsive {
+  text-align: center;
+  border-radius: 5px;
+}
+
+.table-responsive tr {
+  font-size: 18px;
+}
+
+.table-responsive td {
+  font-size: 16px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.table-responsive thead {
+  background-color: #bdbdbd;
+}
+
+.levelContainer p {
+  display: inline-block;
+  zoom: 1;
+  display*: inline; /* ie hack */
+  width: 50%;
+}
+
+.formContainer {
+  width: 90%;
+  display: inline-block;
+  zoom: 1;
+  display*: inline; /* ie hack */
+}
+
+.formContainer ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+}
+
+.formContainer input[type=submit] {
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 18px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: #31d33a;
+  width: 100px;
+  border-radius: 10px;
+  text-decoration: none;
+  text-align: center;
+  display: inline-block;
+  margin-top: 25px;
+}
+
+.formContainer input[type=submit]:hover {
+  background-color: #39bf41;
+}
+
+.formContainer ul li {
+  color: black;
+  background-color: #E8E8E8;
+  display:inline-block;
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  *display:inline; /*IE7*/
+  *zoom:1; /*IE7*/
+}
+
+.formContainer ul li input[type=radio]{
+  position: absolute;
+  visibility: hidden;
+}
+
+.formContainer ul li label{
+  background-color: #F0FBFD;
+  display: block;
+  position: relative;
+  font-weight: 400;
+  font-size: 22px;
+  height: 100%;
+  cursor: pointer;
+  -webkit-transition: all 0.25s linear;
+}
+
+.formContainer ul li .check{
+  display: block;
+  position: absolute;
+  border: 5px solid #AAAAAA;
+  border-radius: 100%;
+  height: 25px;
+  width: 25px;
+  top: 30px;
+  left: 20px;
+  right: 20px;
+  z-index: 5;
+  transition: border .25s linear;
+  -webkit-transition: border .25s linear;
+}
+
+.formContainer ul li:hover .check {
+  border: 5px solid #FFFFFF;
+}
+
+.formContainer ul li .check::before {
+  display: block;
+  position: absolute;
+  content: '';
+  border-radius: 100%;
+  height: 15px;
+  width: 15px;
+  top: 5px;
+  left: 5px;
+  margin: auto;
+  transition: background 0.25s linear;
+  -webkit-transition: background 0.25s linear;
+}
+
+.formContainer input[type=radio]:checked ~ .check {
+  border: 5px solid #0DFF92;
+}
+
+.formContainer input[type=radio]:checked ~ .check::before{
+  background: #0DFF92;
+
+}
+
+.formContainer input[type=radio]:checked ~ label{
+  background-color: #67CDDC;
+  border-radius: 5px;
+
+}
+
+/* Courses list part */
+* {
+  margin: 0; 
+  padding: 0;
+}
+
+.coursesList .progress {
+  width: 100%;
+}
+
+div.coursesList ul {
+  list-style-type: none;
+  width: 30%;
+}
+
+div.coursesList ul a {
+  color: inherit;
+  text-decoration: none;
+}
+
+div.coursesList h3 {
+  font: 600 22px/1.5 'Open Sans', Verdana, sans-serif;
+  text-align: center;
+}
+
+div.coursesList li {
+  padding: 10px;
+  overflow: auto;
+  background-color: #67CDDC;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  border-radius: 15px;
+}
+
+div.coursesList li:hover {
+  background: #67bcc8;
+  cursor: pointer;
+}

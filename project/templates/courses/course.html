@@ -1,0 +1,174 @@
+{% extends "_base.html" %}
+{% block content %}
+
+<div class="courseTopContainer">
+    <h3>{{course}}</h3>
+    <br>
+    Current level: {{currentLevel}}/{{maxLevel}}
+    <br>
+
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" aria-valuenow={{percentageProgress}} aria-valuemin="0" aria-valuemax="100" style="width:{{ percentageProgress }}%">
+            <span>{{percentageProgress}}%</span>
+        </div>
+    </div>
+
+    {% if currentLevel == 1 %}
+        <a href = "{{ url_for('main.introduction', course=course)}}">
+            <input type = "button" class = "Course-button" value="Start">
+        </a>
+    {% else %}
+        <a href = "{{ url_for('main.quiz', course=course)}}">
+            <input type = "button" class = "Course-button" value="Continue">
+        </a>
+    {% endif %}
+
+<br>
+<br>
+
+    <form action='' method='POST' role='form'>
+        <input type="submit" value="Reset" class = "Course-resetButton" name="Reset" onclick="return confirm('Are you sure?')"/>
+    </form>
+</div>
+
+<script type="text/javascript">
+
+function toggleTable(tableId) {
+    var lTable = document.getElementById(tableId);
+    lTable.style.display = (lTable.style.display == "table") ? "none" : "table";
+}
+
+</script>
+
+<div class="userDataButtonsHolder">
+    <a onclick="toggleTable('chapterProgress');" href="#">
+        <input type = "button" class = "Course-button" value="Chapter progress">
+    </a>
+
+    <a onclick="toggleTable('charOverview');" href="#">
+        <input type = "button" class = "Course-button" value="Character overview">
+    </a>
+
+    <a onclick="toggleTable('answersHistory');" href="#">
+        <input type = "button" class = "Course-button" value="Answers history">
+    </a>
+</div>
+
+<div class="ChapterProgress-container" id="chapterProgress" style="display:table">
+  <h2>Chapter progress</h2>
+  <p>Check your chapter progress or repeat chapters with low success rate.</p>
+  <div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="text-align: center">Chapter</th>
+                <th style="text-align: center">Status</th>
+                <th style="text-align: center">Progress</th>
+                <th style="text-align: center">Rate</th>
+                <th style="text-align: center">Repeat</th>
+            </tr>
+        </thead>
+        <tbody>  
+            {% for key in chapterData.keys()|sort() %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td>{{ chapterData[key]["status"] }}</td>
+                    <td>{{ chapterData[key]["progress"]["current"] }}/{{ chapterData[key]["progress"]["total"] }}</td>
+
+                    {% if chapterData[key]["progress"]["current"] != 0 %}
+                        <td>{{ chapterData[key]["correct"]["rate"] }} %</td>
+                    {% else %}
+                        <td>-</td>
+                    {% endif %}
+
+                    {% if chapterData[key]["progress"]["current"] == chapterData[key]["progress"]["total"] %}
+                        <td>  
+                            <a href = "{{ url_for('main.repeatChapter', course=course, chapter=key)}}">
+                                <input type = "button" class = "Repeat-button" value="Repeat">
+                            </a>
+                        </td>
+                    {% else %}
+                        <td>Not completed</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="AnswerHistory-container" id="answersHistory" style="display:none">
+    <h2>Answers history overview</h2>
+    <p>Check your overall course progress and answer again any level by clicking 'Repeat' button.</p>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+              <tr>
+                <th style="text-align: center">Level</th>
+                <th style="text-align: center">Status</th>
+                <th style="text-align: center">Date</th>
+                <th style="text-align: center">Repeat</th>
+              </tr>
+            </thead>
+            <tbody>  
+                {% for key in answersHistory.keys()|sort(reverse=True) %}
+                    {% if answersHistory[key]["correct"] %}
+                        <tr class="success">
+                    {% else %}
+                        <tr class="danger">
+                    {% endif %}
+                            <td>{{ answersHistory[key]["level"] }}</td>
+                            <td>{{ answersHistory[key]["correct"] }}</td>
+                            <td>{{ answersHistory[key]["date"] }}</td>
+                            <td>  
+                                <a href = "{{ url_for('main.repeatLevel', course=course, level=answersHistory[key]['level'])}}">
+                                    <input type = "button" class = "Repeat-button" value="Repeat">
+                                </a>
+                            </td>
+                        </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="charOverview-container" id="charOverview" style="display:none">
+    <h2>Character overview</h2>
+    <p>Check your character overview and repeat characters with low rate value to improve your knowledge.</p>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th style="text-align: center">Char</th>
+                    <th style="text-align: center">Chapter</th>
+                    <th style="text-align: center">Rate</th>
+                    <th style="text-align: center">Rate (%)</th>
+                    <th style="text-align: center">Repeat</th>
+                </tr>
+            </thead>
+            <tbody> 
+                {% for key in charStatsKeys %}
+                    <tr>
+                        <td>{{ key }}</td>
+                        <td>{{ charStats[key]["chapter"] }}</td>
+                        {% if charStats[key]["rate"] %}
+                            <td>{{ charStats[key]["correct"] }}/{{ charStats[key]["total"] }}</td>
+                            <td>{{ charStats[key]["rate"] }} %</td>
+                            <td>  
+                            <a href = "{{ url_for('main.repeatChapter', course=course, chapter=charStats[key]['chapter'])}}">
+                            <input type = "button" class = "Repeat-button" value="Repeat">
+                            </a>
+                            </td>
+                        {% else %}
+                            <td>Not started</td>
+                            <td>Not started</td>
+                            <td>Not available</td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

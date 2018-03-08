@@ -1,0 +1,1502 @@
+{
+    "1": {
+        "correct": "airia",
+        "display": "აირია",
+        "options": [
+            "arara",
+            "alara",
+            "airia",
+            "isaia"
+        ]
+    },
+    "2": {
+        "correct": "ისაია",
+        "display": "isaia",
+        "options": [
+            "ისაია",
+            "აირია",
+            "არარა",
+            "ლსაია"
+        ]
+    },
+    "3": {
+        "correct": "er",
+        "display": "ერ",
+        "options": [
+            "se",
+            "khe",
+            "ri",
+            "er"
+        ]
+    },
+    "4": {
+        "correct": "რი",
+        "display": "ri",
+        "options": [
+            "რი",
+            "ერ",
+            "სე",
+            "ფი"
+        ]
+    },
+    "5": {
+        "correct": "r",
+        "display": "რ",
+        "options": [
+            "r",
+            "e",
+            "k'",
+            "i"
+        ]
+    },
+    "6": {
+        "correct": "ი",
+        "display": "i",
+        "options": [
+            "ი",
+            "ე",
+            "რ",
+            "ფ"
+        ]
+    },
+    "7": {
+        "correct": "a",
+        "display": "ა",
+        "options": [
+            "a",
+            "s",
+            "c'",
+            "n"
+        ]
+    },
+    "8": {
+        "correct": "ს",
+        "display": "s",
+        "options": [
+            "ს",
+            "წ",
+            "ა",
+            "მ"
+        ]
+    },
+    "9": {
+        "correct": "isars",
+        "display": "ისარს",
+        "options": [
+            "arsis",
+            "isars",
+            "dsars",
+            "seria"
+        ]
+    },
+    "10": {
+        "correct": "ისარს",
+        "display": "isars",
+        "options": [
+            "ისარს",
+            "არსის",
+            "სერია",
+            "დსარს"
+        ]
+    },
+    "11": {
+        "correct": "maisamde",
+        "display": "მაისამდე",
+        "options": [
+            "khaisamde",
+            "masmedia",
+            "mesameds",
+            "maisamde"
+        ]
+    },
+    "12": {
+        "correct": "მესამედს",
+        "display": "mesameds",
+        "options": [
+            "მესამედს",
+            "მასმედია",
+            "მაისამდე",
+            "ძესამედს"
+        ]
+    },
+    "13": {
+        "correct": "mimdidrisa",
+        "display": "მიმდიდრისა",
+        "options": [
+            "khamaradiso",
+            "samaradiso",
+            "simdidrisa",
+            "mimdidrisa"
+        ]
+    },
+    "14": {
+        "correct": "სიმდიდრისა",
+        "display": "simdidrisa",
+        "options": [
+            "სიმდიდრისა",
+            "სამარადისო",
+            "ხამარადისო",
+            "წიმდიდრისა"
+        ]
+    },
+    "15": {
+        "correct": "imier",
+        "display": "იმიერ",
+        "options": [
+            "imisa",
+            "tmier",
+            "drosa",
+            "imier"
+        ]
+    },
+    "16": {
+        "correct": "იმისა",
+        "display": "imisa",
+        "options": [
+            "იმისა",
+            "იმიერ",
+            "დროსა",
+            "ომისა"
+        ]
+    },
+    "17": {
+        "correct": "madridis",
+        "display": "მადრიდის",
+        "options": [
+            "madridis",
+            "maimisod",
+            "saimisod",
+            "midiodes"
+        ]
+    },
+    "18": {
+        "correct": "საიმისოდ",
+        "display": "saimisod",
+        "options": [
+            "საიმისოდ",
+            "მადრიდის",
+            "მიდიოდეს",
+            "მაიმისოდ"
+        ]
+    },
+    "19": {
+        "correct": "rarad",
+        "display": "რარად",
+        "options": [
+            "rarad",
+            "rodia",
+            "darad",
+            "ormos"
+        ]
+    },
+    "20": {
+        "correct": "ორმოს",
+        "display": "ormos",
+        "options": [
+            "ორმოს",
+            "როდია",
+            "დარად",
+            "დრმოს"
+        ]
+    },
+    "21": {
+        "correct": "en",
+        "display": "ენ",
+        "options": [
+            "en",
+            "ml",
+            "c'l",
+            "iv"
+        ]
+    },
+    "22": {
+        "correct": "ენ",
+        "display": "en",
+        "options": [
+            "ენ",
+            "ივ",
+            "მლ",
+            "კნ"
+        ]
+    },
+    "23": {
+        "correct": "disneis",
+        "display": "დისნეის",
+        "options": [
+            "disneis",
+            "danvris",
+            "liderma",
+            "ianvris"
+        ]
+    },
+    "24": {
+        "correct": "დისნეის",
+        "display": "disneis",
+        "options": [
+            "დისნეის",
+            "ლიდერმა",
+            "იანვრის",
+            "იისნეის"
+        ]
+    },
+    "25": {
+        "correct": "mosasmenad",
+        "display": "მოსასმენად",
+        "options": [
+            "milsadenis",
+            "khilsadenis",
+            "mosasmenad",
+            "londonidan"
+        ]
+    },
+    "26": {
+        "correct": "ლონდონიდან",
+        "display": "londonidan",
+        "options": [
+            "ლონდონიდან",
+            "მოსასმენად",
+            "მილსადენის",
+            "დონდონიდან"
+        ]
+    },
+    "27": {
+        "correct": "dasavleli",
+        "display": "დასავლელი",
+        "options": [
+            "solomonma",
+            "dasavleli",
+            "novalisis",
+            "c'olomonma"
+        ]
+    },
+    "28": {
+        "correct": "ნოვალისის",
+        "display": "novalisis",
+        "options": [
+            "ნოვალისის",
+            "სოლომონმა",
+            "დასავლელი",
+            "ხოვალისის"
+        ]
+    },
+    "29": {
+        "correct": "mandilosans",
+        "display": "მანდილოსანს",
+        "options": [
+            "miliarderis",
+            "apamianidan",
+            "mandilosans",
+            "adamianidan"
+        ]
+    },
+    "30": {
+        "correct": "მილიარდერის",
+        "display": "miliarderis",
+        "options": [
+            "მილიარდერის",
+            "მანდილოსანს",
+            "ადამიანიდან",
+            "წილიარდერის"
+        ]
+    },
+    "31": {
+        "correct": "titebi",
+        "display": "თითები",
+        "options": [
+            "titebi",
+            "bebero",
+            "ibilia",
+            "rbilia"
+        ]
+    },
+    "32": {
+        "correct": "რბილია",
+        "display": "rbilia",
+        "options": [
+            "რბილია",
+            "ბებერო",
+            "თითები",
+            "დბილია"
+        ]
+    },
+    "33": {
+        "correct": "bp'",
+        "display": "ბპ",
+        "options": [
+            "ba",
+            "bp'",
+            "nu",
+            "be"
+        ]
+    },
+    "34": {
+        "correct": "ნუ",
+        "display": "nu",
+        "options": [
+            "ნუ",
+            "ბე",
+            "ბა",
+            "სუ"
+        ]
+    },
+    "35": {
+        "correct": "sabutebs",
+        "display": "საბუთებს",
+        "options": [
+            "sinanuli",
+            "mtavarni",
+            "ntavarni",
+            "sabutebs"
+        ]
+    },
+    "36": {
+        "correct": "მთავარნი",
+        "display": "mtavarni",
+        "options": [
+            "მთავარნი",
+            "სინანული",
+            "საბუთებს",
+            "ძთავარნი"
+        ]
+    },
+    "37": {
+        "correct": "nasiamovnebi",
+        "display": "ნასიამოვნები",
+        "options": [
+            "savaldebulod",
+            "dzasiamovnebi",
+            "mimdinareobs",
+            "nasiamovnebi"
+        ]
+    },
+    "38": {
+        "correct": "ნასიამოვნები",
+        "display": "nasiamovnebi",
+        "options": [
+            "ნასიამოვნები",
+            "მიმდინარეობს",
+            "სავალდებულოდ",
+            "მასიამოვნები"
+        ]
+    },
+    "39": {
+        "correct": "daavadebisa",
+        "display": "დაავადებისა",
+        "options": [
+            "samtavisisa",
+            "daavadebisa",
+            "ubednieresi",
+            "mamtavisisa"
+        ]
+    },
+    "40": {
+        "correct": "სამთავისისა",
+        "display": "samtavisisa",
+        "options": [
+            "სამთავისისა",
+            "უბედნიერესი",
+            "დაავადებისა",
+            "ძამთავისისა"
+        ]
+    },
+    "41": {
+        "correct": "adaivanishvili",
+        "display": "ადაივანიშვილი",
+        "options": [
+            "gadaadgilebis",
+            "adaivanishvili",
+            "araivanishvili",
+            "tanamshromlobs"
+        ]
+    },
+    "42": {
+        "correct": "გადაადგილების",
+        "display": "gadaadgilebis",
+        "options": [
+            "გადაადგილების",
+            "თანამშრომლობს",
+            "არაივანიშვილი",
+            "გაიაადგილების"
+        ]
+    },
+    "43": {
+        "correct": "khsnadi",
+        "display": "ხსნადი",
+        "options": [
+            "shtdsis",
+            "khsnadi",
+            "masashi",
+            "shidsis"
+        ]
+    },
+    "44": {
+        "correct": "შიდსის",
+        "display": "shidsis",
+        "options": [
+            "შიდსის",
+            "მასაში",
+            "ხსნადი",
+            "შდდსის"
+        ]
+    },
+    "45": {
+        "correct": "gadaadgilebul",
+        "display": "გადაადგილებულ",
+        "options": [
+            "adgilobrivebi",
+            "argilobrivebi",
+            "gadaadgilebul",
+            "ganvitarebasa"
+        ]
+    },
+    "46": {
+        "correct": "ადგილობრივები",
+        "display": "adgilobrivebi",
+        "options": [
+            "ადგილობრივები",
+            "განვითარებასა",
+            "გადაადგილებულ",
+            "აფგილობრივები"
+        ]
+    },
+    "47": {
+        "correct": "khorbali",
+        "display": "ხორბალი",
+        "options": [
+            "rigebshi",
+            "khsovnas",
+            "digebshi",
+            "khorbali"
+        ]
+    },
+    "48": {
+        "correct": "ხორბალი",
+        "display": "khorbali",
+        "options": [
+            "ხორბალი",
+            "ხსოვნას",
+            "რიგებში",
+            "სორბალი"
+        ]
+    },
+    "49": {
+        "correct": "panamshromlebistvis",
+        "display": "ფანამშრომლებისთვის",
+        "options": [
+            "tanamshromlebistvis",
+            "khomkhmareblebistvis",
+            "panamshromlebistvis",
+            "momkhmareblebistvis"
+        ]
+    },
+    "50": {
+        "correct": "ფანამშრომლებისთვის",
+        "display": "panamshromlebistvis",
+        "options": [
+            "ფანამშრომლებისთვის",
+            "მომხმარებლებისთვის",
+            "თანამშრომლებისთვის",
+            "ღანამშრომლებისთვის"
+        ]
+    },
+    "51": {
+        "correct": "k'",
+        "display": "კ",
+        "options": [
+            "ts",
+            "t'",
+            "k'",
+            "e"
+        ]
+    },
+    "52": {
+        "correct": "ც",
+        "display": "ts",
+        "options": [
+            "ტ",
+            "კ",
+            "ც",
+            "პ"
+        ]
+    },
+    "53": {
+        "correct": "sak'urtkhevlis",
+        "display": "საკურთხევლის",
+        "options": [
+            "sak'urtkhevlis",
+            "gamotsotskhleba",
+            "gac'otsotskhleba",
+            "k'onst'it'utsiit"
+        ]
+    },
+    "54": {
+        "correct": "გამოცოცხლება",
+        "display": "gamotsotskhleba",
+        "options": [
+            "კონსტიტუციით",
+            "საკურთხევლის",
+            "გამოცოცხლება",
+            "ეონსტიტუციით"
+        ]
+    },
+    "55": {
+        "correct": "dak'virveba",
+        "display": "დაკვირვება",
+        "options": [
+            "sanit'ariul",
+            "delegatsiis",
+            "oak'virveba",
+            "dak'virveba"
+        ]
+    },
+    "56": {
+        "correct": "დელეგაციის",
+        "display": "delegatsiis",
+        "options": [
+            "დაკვირვება",
+            "დელეგაციის",
+            "სანიტარიულ",
+            "ღაკვირვება"
+        ]
+    },
+    "57": {
+        "correct": "iegist'ratsiistvis",
+        "display": "იეგისტრაციისთვის",
+        "options": [
+            "regist'ratsiistvis",
+            "iegist'ratsiistvis",
+            "k'ontsent'rirebulia",
+            "k'etilsindisierad"
+        ]
+    },
+    "58": {
+        "correct": "mamak'atsebisatvis",
+        "display": "მამაკაცებისათვის",
+        "options": [
+            "gankhortsielebisas",
+            "khelovnebatmtsodne",
+            "khamak'atsebisatvis",
+            "mamak'atsebisatvis"
+        ]
+    },
+    "59": {
+        "correct": "განხორციელებისას",
+        "display": "gankhortsielebisas",
+        "options": [
+            "განხორციელებისას",
+            "ხელოვნებათმცოდნე",
+            "მამაკაცებისათვის",
+            "გაძხორციელებისას"
+        ]
+    },
+    "60": {
+        "correct": "ktseva",
+        "display": "ქცევა",
+        "options": [
+            "shukis",
+            "shch'kis",
+            "ktseva",
+            "ertze"
+        ]
+    },
+    "61": {
+        "correct": "შუქის",
+        "display": "shukis",
+        "options": [
+            "შუქის",
+            "ერთზე",
+            "ქცევა",
+            "შჰქის"
+        ]
+    },
+    "62": {
+        "correct": "shach'ris",
+        "display": "შაჭრის",
+        "options": [
+            "met'rze",
+            "shach'ris",
+            "shakris",
+            "kudebi"
+        ]
+    },
+    "63": {
+        "correct": "ქუდები",
+        "display": "kudebi",
+        "options": [
+            "ქუდები",
+            "მეტრზე",
+            "შაქრის",
+            "ჰუდები"
+        ]
+    },
+    "64": {
+        "correct": "okrosa",
+        "display": "ოქროსა",
+        "options": [
+            "kavils",
+            "kvrivs",
+            "hvrivs",
+            "okrosa"
+        ]
+    },
+    "65": {
+        "correct": "ქავილს",
+        "display": "kavils",
+        "options": [
+            "ქავილს",
+            "ქვრივს",
+            "ოქროსა",
+            "ჭავილს"
+        ]
+    },
+    "66": {
+        "correct": "k'ovzs",
+        "display": "კოვზს",
+        "options": [
+            "karshi",
+            "kveit",
+            "zhveit",
+            "k'ovzs"
+        ]
+    },
+    "67": {
+        "correct": "ქარში",
+        "display": "karshi",
+        "options": [
+            "ქარში",
+            "ქვეით",
+            "კოვზს",
+            "ჰარში"
+        ]
+    },
+    "68": {
+        "correct": "olks",
+        "display": "ოლქს",
+        "options": [
+            "zoro",
+            "shuki",
+            "olks",
+            "zpro"
+        ]
+    },
+    "69": {
+        "correct": "ზორო",
+        "display": "zoro",
+        "options": [
+            "ზორო",
+            "შუქი",
+            "ოლქს",
+            "ზღრო"
+        ]
+    },
+    "70": {
+        "correct": "gapormda",
+        "display": "გაფორმდა",
+        "options": [
+            "pnpektsia",
+            "inpektsia",
+            "uarq'opis",
+            "gapormda"
+        ]
+    },
+    "71": {
+        "correct": "ინფექცია",
+        "display": "inpektsia",
+        "options": [
+            "ინფექცია",
+            "უარყოფის",
+            "გაფორმდა",
+            "თნფექცია"
+        ]
+    },
+    "72": {
+        "correct": "t'q'it",
+        "display": "ტყით",
+        "options": [
+            "q'uts",
+            "roti",
+            "t'q'it",
+            "poti"
+        ]
+    },
+    "73": {
+        "correct": "ფოთი",
+        "display": "poti",
+        "options": [
+            "ფოთი",
+            "ყუთს",
+            "ტყით",
+            "დოთი"
+        ]
+    },
+    "74": {
+        "correct": "q'uri",
+        "display": "ყური",
+        "options": [
+            "q'opa",
+            "q'uri",
+            "k'ape",
+            "q'ch'ri"
+        ]
+    },
+    "75": {
+        "correct": "op",
+        "display": "ოფ",
+        "options": [
+            "p'a",
+            "op",
+            "k'o",
+            "p'o"
+        ]
+    },
+    "76": {
+        "correct": "ოფ",
+        "display": "op",
+        "options": [
+            "პო",
+            "ოფ",
+            "პა",
+            "ეო"
+        ]
+    },
+    "77": {
+        "correct": "arap'irdap'iri",
+        "display": "არაპირდაპირი",
+        "options": [
+            "k'omp'et'entsiis",
+            "aiap'irdap'iri",
+            "arap'irdap'iri",
+            "ganap'irobebs"
+        ]
+    },
+    "78": {
+        "correct": "sibrdznit",
+        "display": "სიბრძნით",
+        "options": [
+            "gotsiridze",
+            "sibrdznit",
+            "gttsiridze",
+            "chik'vaidze"
+        ]
+    },
+    "79": {
+        "correct": "გოცირიძე",
+        "display": "gotsiridze",
+        "options": [
+            "ჩიკვაიძე",
+            "გოცირიძე",
+            "სიბრძნით",
+            "ჩოკვაიძე"
+        ]
+    },
+    "80": {
+        "correct": "n",
+        "display": "ნ",
+        "options": [
+            "n",
+            "dz",
+            "gh",
+            "ch"
+        ]
+    },
+    "81": {
+        "correct": "ჩ",
+        "display": "ch",
+        "options": [
+            "ჩ",
+            "ღ",
+            "ძ",
+            "ლ"
+        ]
+    },
+    "82": {
+        "correct": "schveviat",
+        "display": "სჩვევიათ",
+        "options": [
+            "sachukrad",
+            "rirebuli",
+            "schveviat",
+            "ghirebuli"
+        ]
+    },
+    "83": {
+        "correct": "სჩვევიათ",
+        "display": "schveviat",
+        "options": [
+            "სჩვევიათ",
+            "ღირებული",
+            "საჩუქრად",
+            "მჩვევიათ"
+        ]
+    },
+    "84": {
+        "correct": "gha",
+        "display": "ღა",
+        "options": [
+            "agh",
+            "gha",
+            "ar",
+            "chv"
+        ]
+    },
+    "85": {
+        "correct": "ღა",
+        "display": "gha",
+        "options": [
+            "ღა",
+            "ჩვ",
+            "აღ",
+            "ლა"
+        ]
+    },
+    "86": {
+        "correct": "c'aghalt'eknologiuri",
+        "display": "წაღალტექნოლოგიური",
+        "options": [
+            "maghalt'eknologiuri",
+            "khelmdzghvanelobdnen",
+            "c'aghalt'eknologiuri",
+            "samartaldarghvevis"
+        ]
+    },
+    "87": {
+        "correct": "ხელმძღვანელობდნენ",
+        "display": "khelmdzghvanelobdnen",
+        "options": [
+            "მაღალტექნოლოგიური",
+            "ხელმძღვანელობდნენ",
+            "სამართალდარღვევის",
+            "ხაღალტექნოლოგიური"
+        ]
+    },
+    "88": {
+        "correct": "janmrtelobisatvis",
+        "display": "ჯანმრთელობისათვის",
+        "options": [
+            "janmrtelobisatvis",
+            "kip'ermgrdznobeloba",
+            "hip'ermgrdznobeloba",
+            "ant'ihip'ert'enziuli"
+        ]
+    },
+    "89": {
+        "correct": "ჯანმრთელობისათვის",
+        "display": "janmrtelobisatvis",
+        "options": [
+            "ჯანმრთელობისათვის",
+            "ჰიპერმგრძნობელობა",
+            "ანტიჰიპერტენზიული",
+            "ჯაწმრთელობისათვის"
+        ]
+    },
+    "90": {
+        "correct": "mzhavebs",
+        "display": "მჟავებს",
+        "options": [
+            "mzhavebs",
+            "jaoimas",
+            "jarimas",
+            "miesaja"
+        ]
+    },
+    "91": {
+        "correct": "ჯარიმას",
+        "display": "jarimas",
+        "options": [
+            "ჯარიმას",
+            "მიესაჯა",
+            "მჟავებს",
+            "ჯაიიმას"
+        ]
+    },
+    "92": {
+        "correct": "hip'ermgrdznobelobis",
+        "display": "ჰიპერმგრძნობელობის",
+        "options": [
+            "gaumjobesebisatvis",
+            "hip'ermgrdznobelobis",
+            "gazhmjobesebisatvis",
+            "zhip'ermgrdznobelobis"
+        ]
+    },
+    "93": {
+        "correct": "გაუმჯობესებისათვის",
+        "display": "gaumjobesebisatvis",
+        "options": [
+            "გაუმჯობესებისათვის",
+            "ჟიპერმგრძნობელობის",
+            "ჰიპერმგრძნობელობის",
+            "გაჰმჯობესებისათვის"
+        ]
+    },
+    "94": {
+        "correct": "gapach'ra",
+        "display": "გაფაჭრა",
+        "options": [
+            "gadach'ra",
+            "sach'mlis",
+            "anich'ebs",
+            "gapach'ra"
+        ]
+    },
+    "95": {
+        "correct": "zhurnalist'ebma",
+        "display": "ჟურნალისტებმა",
+        "options": [
+            "zhurnalist'ebis",
+            "khsjavrdebulta",
+            "msjavrdebulta",
+            "zhurnalist'ebma"
+        ]
+    },
+    "96": {
+        "correct": "მსჯავრდებულთა",
+        "display": "msjavrdebulta",
+        "options": [
+            "ჟურნალისტებმა",
+            "ჟურნალისტების",
+            "მსჯავრდებულთა",
+            "უურნალისტებმა"
+        ]
+    },
+    "97": {
+        "correct": "martlmadideblobis",
+        "display": "მართლმადიდებლობის",
+        "options": [
+            "martlmadideblobis",
+            "zhurnalist'ebistvis",
+            "k'anonmdeblobastan",
+            "kurnalist'ebistvis"
+        ]
+    },
+    "98": {
+        "correct": "მართლმადიდებლობის",
+        "display": "martlmadideblobis",
+        "options": [
+            "კანონმდებლობასთან",
+            "ჟურნალისტებისთვის",
+            "მართლმადიდებლობის",
+            "ეანონმდებლობასთან"
+        ]
+    },
+    "99": {
+        "correct": "organizatsiastan",
+        "display": "ორგანიზაციასთან",
+        "options": [
+            "organizatsiastan",
+            "gadarchenisatvis",
+            "dziamovnebistvis",
+            "siamovnebistvis"
+        ]
+    },
+    "100": {
+        "correct": "სიამოვნებისთვის",
+        "display": "siamovnebistvis",
+        "options": [
+            "სიამოვნებისთვის",
+            "ორგანიზაციასთან",
+            "გადარჩენისათვის",
+            "მიამოვნებისთვის"
+        ]
+    },
+    "101": {
+        "correct": "punktsionirebisatvis",
+        "display": "ფუნქციონირებისათვის",
+        "options": [
+            "ninasc'armet'q'velebis",
+            "damouk'ideblobistvis",
+            "c'inasc'armet'q'velebis",
+            "punktsionirebisatvis"
+        ]
+    },
+    "102": {
+        "correct": "ფუნქციონირებისათვის",
+        "display": "punktsionirebisatvis",
+        "options": [
+            "ფუნქციონირებისათვის",
+            "დამოუკიდებლობისთვის",
+            "წინასწარმეტყველების",
+            "იუნქციონირებისათვის"
+        ]
+    },
+    "103": {
+        "correct": "c'inasc'armet'q'velebis",
+        "display": "წინასწარმეტყველების",
+        "options": [
+            "ianamshromlebisatvis",
+            "tanamshromlebisatvis",
+            "punktsionirebisatvis",
+            "c'inasc'armet'q'velebis"
+        ]
+    },
+    "104": {
+        "correct": "თანამშრომლებისათვის",
+        "display": "tanamshromlebisatvis",
+        "options": [
+            "თანამშრომლებისათვის",
+            "ფუნქციონირებისათვის",
+            "წინასწარმეტყველების",
+            "ოანამშრომლებისათვის"
+        ]
+    },
+    "105": {
+        "correct": "k'at'o",
+        "display": "კატო",
+        "options": [
+            "khaar",
+            "eeeh",
+            "k'at'o",
+            "c'aar"
+        ]
+    },
+    "106": {
+        "correct": "ხაარ",
+        "display": "khaar",
+        "options": [
+            "კატო",
+            "ხაარ",
+            "ეეეჰ",
+            "პატო"
+        ]
+    },
+    "107": {
+        "correct": "titeuli",
+        "display": "თითეული",
+        "options": [
+            "titeuli",
+            "c'utiani",
+            "gamt'ari",
+            "gakht'ari"
+        ]
+    },
+    "108": {
+        "correct": "თითეული",
+        "display": "titeuli",
+        "options": [
+            "წუთიანი",
+            "თითეული",
+            "გამტარი",
+            "სუთიანი"
+        ]
+    },
+    "109": {
+        "correct": "lui",
+        "display": "ლუი",
+        "options": [
+            "mak'",
+            "bus",
+            "bch's",
+            "lui"
+        ]
+    },
+    "110": {
+        "correct": "ბუს",
+        "display": "bus",
+        "options": [
+            "ბუს",
+            "მაკ",
+            "ლუი",
+            "ბჰს"
+        ]
+    },
+    "111": {
+        "correct": "liderebis",
+        "display": "ლიდერების",
+        "options": [
+            "moimat'ebs",
+            "gadatsemit",
+            "riderebis",
+            "liderebis"
+        ]
+    },
+    "112": {
+        "correct": "გადაცემით",
+        "display": "gadatsemit",
+        "options": [
+            "გადაცემით",
+            "ლიდერების",
+            "მოიმატებს",
+            "გათაცემით"
+        ]
+    },
+    "113": {
+        "correct": "k'",
+        "display": "კ",
+        "options": [
+            "v",
+            "d",
+            "m",
+            "k'"
+        ]
+    },
+    "114": {
+        "correct": "დ",
+        "display": "d",
+        "options": [
+            "კ",
+            "დ",
+            "მ",
+            "პ"
+        ]
+    },
+    "115": {
+        "correct": "gadzkhortsielebuli",
+        "display": "გაძხორციელებული",
+        "options": [
+            "gadzkhortsielebuli",
+            "gankhortsielebuli",
+            "gulsiskhldzarghvta",
+            "dasakhasiateblad"
+        ]
+    },
+    "116": {
+        "correct": "დასახასიათებლად",
+        "display": "dasakhasiateblad",
+        "options": [
+            "დასახასიათებლად",
+            "განხორციელებული",
+            "გულსისხლძარღვთა",
+            "ღასახასიათებლად"
+        ]
+    },
+    "117": {
+        "correct": "p'oet'ta",
+        "display": "პოეტთა",
+        "options": [
+            "p'oet'ta",
+            "leksia",
+            "p'it'q'vi",
+            "vit'q'vi"
+        ]
+    },
+    "118": {
+        "correct": "ლექსია",
+        "display": "leksia",
+        "options": [
+            "პოეტთა",
+            "ვიტყვი",
+            "ლექსია",
+            "ეოეტთა"
+        ]
+    },
+    "119": {
+        "correct": "zrgi",
+        "display": "ზრგი",
+        "options": [
+            "zogi",
+            "rep'i",
+            "adga",
+            "zrgi"
+        ]
+    },
+    "120": {
+        "correct": "ადგა",
+        "display": "adga",
+        "options": [
+            "ადგა",
+            "რეპი",
+            "ზოგი",
+            "არგა"
+        ]
+    },
+    "121": {
+        "correct": "gulshemat'k'ivrebs",
+        "display": "გულშემატკივრებს",
+        "options": [
+            "martlmadidebeli",
+            "gulshemat'k'ivrebs",
+            "gadasakhadisagan",
+            "galasakhadisagan"
+        ]
+    },
+    "122": {
+        "correct": "მართლმადიდებელი",
+        "display": "martlmadidebeli",
+        "options": [
+            "მართლმადიდებელი",
+            "გადასახადისაგან",
+            "გულშემატკივრებს",
+            "სართლმადიდებელი"
+        ]
+    },
+    "123": {
+        "correct": "c'ormaluri",
+        "display": "წორმალური",
+        "options": [
+            "normaluri",
+            "p'rodukt'shi",
+            "khelovanis",
+            "c'ormaluri"
+        ]
+    },
+    "124": {
+        "correct": "ხელოვანის",
+        "display": "khelovanis",
+        "options": [
+            "ხელოვანის",
+            "პროდუქტში",
+            "ნორმალური",
+            "მელოვანის"
+        ]
+    },
+    "125": {
+        "correct": "c'inasc'armet'q'veleba",
+        "display": "წინასწარმეტყველება",
+        "options": [
+            "c'inasc'armet'q'velebs",
+            "c'inasc'armet'q'veleba",
+            "ninasc'armet'q'velebs",
+            "hip'ermgrdznobelobis"
+        ]
+    },
+    "126": {
+        "correct": "ganatvalisc'inebelia",
+        "display": "განათვალისწინებელია",
+        "options": [
+            "gamokveq'nebistanave",
+            "ganatvalisc'inebelia",
+            "tanamshromlebisatvis",
+            "gasatvalisc'inebelia"
+        ]
+    },
+    "127": {
+        "correct": "თანამშრომლებისათვის",
+        "display": "tanamshromlebisatvis",
+        "options": [
+            "გამოქვეყნებისთანავე",
+            "თანამშრომლებისათვის",
+            "გასათვალისწინებელია",
+            "განოქვეყნებისთანავე"
+        ]
+    },
+    "128": {
+        "correct": "moiktsnen",
+        "display": "მოიქცნენ",
+        "options": [
+            "gharibebi",
+            "megobars",
+            "moiktsnen",
+            "c'egobars"
+        ]
+    },
+    "129": {
+        "correct": "მოიქცნენ",
+        "display": "moiktsnen",
+        "options": [
+            "მოიქცნენ",
+            "მეგობარს",
+            "ღარიბები",
+            "ძოიქცნენ"
+        ]
+    },
+    "130": {
+        "correct": "c'a",
+        "display": "წა",
+        "options": [
+            "c'a",
+            "no",
+            "md",
+            "kha"
+        ]
+    },
+    "131": {
+        "correct": "ხა",
+        "display": "kha",
+        "options": [
+            "ხა",
+            "ნო",
+            "მდ",
+            "ძა"
+        ]
+    },
+    "132": {
+        "correct": "lamouk'ideblobisatvis",
+        "display": "ლამოუკიდებლობისათვის",
+        "options": [
+            "lamouk'ideblobisatvis",
+            "c'armomadgenlebistvis",
+            "damouk'ideblobisatvis",
+            "aradamak'maq'opilebeli"
+        ]
+    },
+    "133": {
+        "correct": "ნარმომადგენლებისთვის",
+        "display": "narmomadgenlebistvis",
+        "options": [
+            "წარმომადგენლებისთვის",
+            "დამოუკიდებლობისათვის",
+            "არადამაკმაყოფილებელი",
+            "ნარმომადგენლებისთვის"
+        ]
+    },
+    "134": {
+        "correct": "gamonatkvamebi",
+        "display": "გამონათქვამები",
+        "options": [
+            "tavadaznauroba",
+            "ravadaznauroba",
+            "sakhelshek'rulebo",
+            "gamonatkvamebi"
+        ]
+    },
+    "135": {
+        "correct": "გამონათქვამები",
+        "display": "gamonatkvamebi",
+        "options": [
+            "გამონათქვამები",
+            "თავადაზნაურობა",
+            "სახელშეკრულებო",
+            "გაძონათქვამები"
+        ]
+    },
+    "136": {
+        "correct": "q'ovlisshemdzle",
+        "display": "ყოვლისშემძლე",
+        "options": [
+            "emorchileboda",
+            "k'morchileboda",
+            "q'ovlisshemdzle",
+            "sanakhaobrivi"
+        ]
+    },
+    "137": {
+        "correct": "ემორჩილებოდა",
+        "display": "emorchileboda",
+        "options": [
+            "ყოვლისშემძლე",
+            "ემორჩილებოდა",
+            "სანახაობრივი",
+            "ყდვლისშემძლე"
+        ]
+    },
+    "138": {
+        "correct": "smindanma",
+        "display": "სმინდანმა",
+        "options": [
+            "smindanma",
+            "c'mindanma",
+            "p'at'arebis",
+            "satamashod"
+        ]
+    },
+    "139": {
+        "correct": "სათამაშოდ",
+        "display": "satamashod",
+        "options": [
+            "პატარების",
+            "წმინდანმა",
+            "სათამაშოდ",
+            "ვატარების"
+        ]
+    },
+    "140": {
+        "correct": "tavmdabali",
+        "display": "თავმდაბალი",
+        "options": [
+            "iavmdabali",
+            "tavmdabali",
+            "p'ersonalis",
+            "satatbiros"
+        ]
+    },
+    "141": {
+        "correct": "თავმდაბალი",
+        "display": "tavmdabali",
+        "options": [
+            "პერსონალის",
+            "თავმდაბალი",
+            "სათათბიროს",
+            "ეერსონალის"
+        ]
+    },
+    "142": {
+        "correct": "aradamak'maq'opilebeli",
+        "display": "არადამაკმაყოფილებელი",
+        "options": [
+            "p'asukhismgeblobisagan",
+            "aradamak'maq'opilebeli",
+            "sarmomadgenlebistvis",
+            "c'armomadgenlebistvis"
+        ]
+    },
+    "143": {
+        "correct": "p'oema",
+        "display": "პოემა",
+        "options": [
+            "magan",
+            "p'oema",
+            "dzagan",
+            "ch'ikas"
+        ]
+    },
+    "144": {
+        "correct": "მაგან",
+        "display": "magan",
+        "options": [
+            "მაგან",
+            "ჭიქას",
+            "პოემა",
+            "საგან"
+        ]
+    },
+    "145": {
+        "correct": "laza",
+        "display": "ლაზა",
+        "options": [
+            "laza",
+            "dzmad",
+            "paza",
+            "chiri"
+        ]
+    },
+    "146": {
+        "correct": "ჩირი",
+        "display": "chiri",
+        "options": [
+            "ჩირი",
+            "ფაზა",
+            "ძმად",
+            "ჩლრი"
+        ]
+    },
+    "147": {
+        "correct": "gamocheniliq'o",
+        "display": "გამოჩენილიყო",
+        "options": [
+            "zk'moaghnishnul",
+            "gamocheniliq'o",
+            "dasakmebulia",
+            "zemoaghnishnul"
+        ]
+    },
+    "148": {
+        "correct": "დასაქმებულია",
+        "display": "dasakmebulia",
+        "options": [
+            "დასაქმებულია",
+            "ზემოაღნიშნულ",
+            "გამოჩენილიყო",
+            "რასაქმებულია"
+        ]
+    },
+    "149": {
+        "correct": "skesobrivad",
+        "display": "სქესობრივად",
+        "options": [
+            "skesobrivad",
+            "ghep'resiebis",
+            "rep'resiebis",
+            "darc'munebit"
+        ]
+    },
+    "150": {
+        "correct": "სქესობრივად",
+        "display": "skesobrivad",
+        "options": [
+            "რეპრესიების",
+            "სქესობრივად",
+            "დარწმუნებით",
+            "ფეპრესიების"
+        ]
+    }
+}

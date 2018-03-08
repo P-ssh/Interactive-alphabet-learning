@@ -1,0 +1,17 @@
+{% extends "_base.html" %}
+{% block content %}
+
+<div class="levelContainer">
+	<p>Symbols introduction</p>
+	<p>Press continue button below after you finish memorizing them.</p>
+
+	{% for letter in letters %}
+		<h2> {{ letter }} - {{ letters.get(letter) }}</h2>
+	{% endfor %}
+
+	<a href = "{{ url_for('main.quiz', course=course)}}">
+		<input type = "button" class = "Course-button" value="Continue">
+	</a>
+</div>
+
+{% endblock %}

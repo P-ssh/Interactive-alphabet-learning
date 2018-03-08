@@ -1,0 +1,32 @@
+{% extends "_base.html" %}
+{% block content %}
+
+<div class="levelContainer">
+
+	<p>Level {{ currentLevel }}/{{ maxLevel }}</p>
+
+	<div class="progress center-block" style="width:90%;">
+
+ 		<div class="progress-bar" role="progressbar" aria-valuenow={{percentageProgress}} aria-valuemin="0" aria-valuemax="100" style="width:{{ percentageProgress }}%">
+   			<span>{{percentageProgress}}%</span>
+ 		</div>
+
+	</div>
+
+	<div class="displayWord">
+		<p>{{ display }}</p>
+	</div>
+
+	<div class="formContainer">
+		<form action='' method='POST' role='form'>
+			<ul>
+			<li>
+				{{ form.quizform() }}
+			</li>
+			</ul>
+	    	<input type="submit" value="submit" />
+		</form>
+	</div>
+</div>
+
+{% endblock %}

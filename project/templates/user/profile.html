@@ -1,0 +1,42 @@
+{% extends "_base.html" %}
+
+{% block content %}
+
+<h1>Your Profile</h1>
+
+{% if current_user.is_authenticated() %}
+  <p>Email: {{ current_user.email }}</p>
+  <p>Username: {{ current_user.username }}</p>
+  <p>Registered on: {{ registeredOn }}</p>
+{% endif %}
+
+<div class='changePassword'>
+  <h3>Change Password</h3>
+  <form class="form-reset" role="form" method="post" action="">
+    {{ form.csrf_token }}
+    <p>
+      {{ form.password(placeholder="password") }}
+      <span class="error">
+        {% if form.password.errors %}
+          {% for error in form.password.errors %}
+            {{ error }}
+          {% endfor %}
+        {% endif %}
+      </span>
+    </p>
+
+    <p>
+    {{ form.confirm(placeholder="confirm") }}
+      <span class="error">
+        {% if form.confirm.errors %}
+          {% for error in form.confirm.errors %}
+            {{ error }}
+          {% endfor %}
+        {% endif %}
+      </span>
+    </p>
+  <button class = "Course-button" type="submit">Update</button>
+  </form>
+</div>
+
+{% endblock %}
