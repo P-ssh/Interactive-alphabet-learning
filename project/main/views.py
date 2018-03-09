@@ -1,6 +1,5 @@
 from flask import render_template, Blueprint, url_for, \
     redirect, flash, request
-#from flask.ext.login import login_required, current_user
 from flask_login import login_required, current_user
 
 from project.models import *
@@ -17,6 +16,7 @@ import importlib
 import inspect
 from operator import itemgetter
 from bisect import insort, bisect_left
+
 
 main_blueprint = Blueprint('main', __name__,)
 

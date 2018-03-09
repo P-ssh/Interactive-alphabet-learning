@@ -2,15 +2,14 @@ import os
 import unittest
 import coverage
 
-#from flask.ext.script import Manager
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
-#from flask.ext.migrate import Migrate, MigrateCommand
 
 from project import app, db
 from project.models import *
 
-app.config.from_object(os.environ['APP_SETTINGS'])
+
+app.config.from_object('project.config.DevelopmentConfig')
 
 migrate = Migrate(app, db)
 manager = Manager(app)
@@ -23,6 +22,7 @@ def test():
 
     tests = unittest.TestLoader().discover('tests')
     result = unittest.TextTestRunner(verbosity=2).run(tests)
+
     if result.wasSuccessful():
         return 0
     else:
@@ -33,19 +33,23 @@ def test():
 def coverageTest():
     """This method runs unit tests with the coverage."""
 
-    cov = coverage.coverage(branch=True, include='project/*')
-    cov.start()
+    coverageTest = coverage.coverage(branch=True, include='project/*')
+
+    coverageTest.start()
     tests = unittest.TestLoader().discover('tests')
     unittest.TextTestRunner(verbosity=2).run(tests)
-    cov.stop()
-    cov.save()
-    print('Coverage Summary:')
-    cov.report()
+    coverageTest.stop()
+
+    coverageTest.save()
+    print 'Coverage tests summary:'
+    coverageTest.report()
+
     basedir = os.path.abspath(os.path.dirname(__file__))
     covdir = os.path.join(basedir, 'tmp/coverage')
-    cov.html_report(directory=covdir)
-    print('HTML version: file://%s/index.html' % covdir)
-    cov.erase()
+    coverageTest.html_report(directory=covdir)
+    print 'HTML version: file://%s/index.html' % covdir
+
+    coverageTest.erase()
 
 
 @manager.command

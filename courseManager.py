@@ -17,6 +17,7 @@ import importlib,sys
 import inspect
 import re
 
+
 parser = argparse.ArgumentParser(description='This script is used to add a new course to the Interactive alphabet learning application. \
     Make sure that you provide valid input data (arguments are described below) otherwise the script may fail and then it may require \
     to manually revert last changes made by this faulty run. \

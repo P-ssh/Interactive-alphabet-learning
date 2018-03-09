@@ -1,5 +1,6 @@
 import os
 
+
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 class BaseConfig(object):
@@ -15,11 +16,11 @@ class BaseConfig(object):
 
 class DevelopmentConfig(BaseConfig):
     """Development configuration."""
-    DEBUG = False#True
+    DEBUG = False
     THREADED = True
     WTF_CSRF_ENABLED = False
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'dev.sqlite')
-    DEBUG_TB_ENABLED = False#True
+    DEBUG_TB_ENABLED = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 

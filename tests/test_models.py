@@ -3,7 +3,6 @@
 import datetime
 import unittest
 
-#from flask.ext.login import current_user
 from flask_login import current_user
 
 from project import bcrypt
