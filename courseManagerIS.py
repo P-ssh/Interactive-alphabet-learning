@@ -1,29 +1,19 @@
 #!/usr/bin/env python
 # coding=utf-8
 
-from project import db, models
-from project.models import User
-
 from collections import Counter
 from random import shuffle
-import importlib, sys
-import subprocess
 import argparse
+import inspect
 import codecs
 import random
-import inspect
-import types
-import json
-import re
 import os
+import re
 
 
-parser = argparse.ArgumentParser(description='This script is used to add a new course to the Interactive alphabet learning application. \
-    Make sure that you provide valid input data (arguments are described below) otherwise the script may fail and then it may require \
-    to manually revert last changes made by this faulty run. \
-    This script creates folder with course templates in project/templates/courses/<courseName>, modifies database file in project/ folder and \
-    it also creates a class for new course in project/models.py file.')
-parser.add_argument('-n', '--coursename', required=True, help='Name of the course that will be added into application. e.g. "mchedruli"')
+parser = argparse.ArgumentParser(description='This script is used to create course templates in "qdef" format which are used to \
+    create new FI.MUNI ROPOT.')
+parser.add_argument('-n', '--coursename', required=True, help='Name of the course that will be added into application. e.g. "mchedruli".')
 parser.add_argument('-wl', '--wordlist', required=True, help='Path to the corpus file. \
     Each line of this file should be in following format: "word","word frequency" separated by comma. E.g. რომელიც,143927')
 parser.add_argument('-tt', '--transcriptiontable', required=True, help='File with transcription rules of every character from specified\
@@ -31,6 +21,8 @@ parser.add_argument('-tt', '--transcriptiontable', required=True, help='File wit
     separated by comma. E.g. ბ,b')
 parser.add_argument('-s', '--similar', help='File with similar characters groups, each line represents one group. \
     characters must be separated by comma. E.g. ღ,დ,ფ,თ')
+parser.add_argument('-t', '--target', required=True, help='Path to the folder where templates for IS.MUNI ROPOT application will be created. \
+    It also creates the folder if it does not already exists. E.g. /home/Documents/Mchedruli/')
 parser.add_argument('-l', '--limit', type=int, default=10, help='Only words from corpus with frequency greater or equal to this value \
 will be processed. Default value is 10.')
 
@@ -40,13 +32,8 @@ wordlist = args.wordlist
 table = args.transcriptiontable
 limit = args.limit
 similar = args.similar
+target = args.target
 
-basedir = os.path.abspath(os.path.dirname(__file__))
-modelsFile = os.path.join(basedir,'project','models.py')
-templatesDir = os.path.join(basedir,'project', 'templates', 'courses')
-destinationFolder = os.path.join(templatesDir, name)
-
-introToLevelMap = {} # Relation between introduction levels and quiz levels
 
 def filterAlphabet(line, alphabet): 
     """This method takes single line from corpus file, which must be formatted like this:
@@ -89,23 +76,6 @@ def checkForUppercase(alphabet):
     return False
 
 
-def getAlphabet():
-    """When user runs this script, transcription table file must be provided as one of required arguments.
-    Format of such file must be: non-latin char,latin char(s) e.g. ღ,gh
-    so the method can parse this file and create list of non-latin characters from specified alphabet.
-
-    Returns:
-        list: List of character from specified alphabet.
-    """
-
-    alphabet = []
-    with codecs.open(table, 'r', 'utf-8') as tableFile:
-        for line in tableFile:
-            alphabet.append(line.split(',')[0])
-
-    return alphabet
-
-
 def translate(word, translateDict):
     """This method takes a word and transliterate it using transcription rules 
     which are provided in translateDict dictionary.
@@ -144,54 +114,6 @@ def getTranslateDict():
                 translateDict[line[0].upper()] = line[1].rstrip().upper()
 
     return translateDict
-
-
-def getCharStats(charLevels):
-    """This method takes a list of lists which represents character levels and returns
-    dictionary template representing character statistics to be stored into database and
-    updated later on with real data.
-
-    Args:
-        charLevels (list): List of lists, sublists contain characters from specified alphabet and it forms
-            character groups.
-
-    Returns:
-        dict: Character statistics dictionary.
-    """
-
-    charStats = {}
-
-    for i in range(len(charLevels)):
-        for char in charLevels[i]:
-            charStats[char] = {}
-            charStats[char]["chapter"] = i + 1
-            charStats[char]["correct"] = 0
-            charStats[char]["total"] = 0
-            charStats[char]["rate"] = ''
-
-    return charStats
-
-
-def getChapterProgress():
-    """This method creates dictionary which stores data about each chapter in course.
-    This dictionary suites as a default template which will be stored into database and updated
-    during course progress with real user data.
-
-    Returns:
-        dict: Chapter progress dictionary.
-    """
-
-    chapterProgress = {}
-
-    for chapter in introToLevelMap:
-        chapterProgress[chapter] = {}
-        chapterProgress[chapter]["status"] = "Not started"
-        chapterProgress[chapter]["progress"] = {'current':0, 'total':(introToLevelMap[chapter][1] - introToLevelMap[chapter][0] + 1)}
-        chapterProgress[chapter]["correct"] = {'subtotal':0, 'correct':0, 'rate':''}
-        chapterProgress[chapter]["repeatLevel"] = introToLevelMap[chapter][0]
-
-    return chapterProgress
-
 
 
 def getSimilarChars():
@@ -273,7 +195,6 @@ def getCharLevels(freqArray, filteredWordlist, supportsUppercase):
     charsetIndex = 1
     found = False
     wordsByLengthDict = {}
-    
 
     while not found and charsetIndex <= len(freqArray):
         wordsByLengthDict = {}
@@ -307,6 +228,7 @@ def getCharLevels(freqArray, filteredWordlist, supportsUppercase):
     return charLevels
 
 
+
 def makeWordOptions(charLevelsWordList, similarCharsList):
     """This method creates list of 3 sublists, each sublist contains 3-4 words suitable for level creation.
 
@@ -320,14 +242,14 @@ def makeWordOptions(charLevelsWordList, similarCharsList):
     """
 
     wordsByLengthDict = {}
-    selectedOptionList = []
+    selectedOptionsList = []
 
     for word in charLevelsWordList:
         wordsByLengthDict = wordsByLength(word, wordsByLengthDict)
 
     wordsByLengthDictKeys = wordsByLengthDict.keys()
 
-    while (len(selectedOptionList) < 5) and (len(wordsByLengthDictKeys) > 0):
+    while (len(selectedOptionsList) < 3) and (len(wordsByLengthDictKeys) > 0):
         randomDictKey = random.choice(wordsByLengthDictKeys)
         randomDictValue = wordsByLengthDict[randomDictKey] # list of words of same length
         shuffle(randomDictValue)
@@ -340,7 +262,7 @@ def makeWordOptions(charLevelsWordList, similarCharsList):
                     randomDictValue.append(trickWord)
                     break
     
-            selectedOptionList.append(randomDictValue)
+            selectedOptionsList.append(randomDictValue)
             del wordsByLengthDict[randomDictKey][:3] 
 
         elif len(randomDictValue) == 2: # need to create 2 more words by swapping similar characters
@@ -350,46 +272,19 @@ def makeWordOptions(charLevelsWordList, similarCharsList):
                     if trickWord:
                         randomDictValue.append(trickWord)
 
-            selectedOptionList.append(randomDictValue)
+            selectedOptionsList.append(randomDictValue)
             wordsByLengthDictKeys.remove(randomDictKey)
 
         else:
             wordsByLengthDictKeys.remove(randomDictKey)
             continue
 
-    if len(selectedOptionList) >= 3:
-        return selectedOptionList
+    if len(selectedOptionsList) == 3:
+        return selectedOptionsList
 
     else:
         return None
 
-
-def generateIntroJson(course, charLevels, translateDict):
-    """This method creates JSON template which contains character introduction.
-
-    Args:
-        course (string): Name of the course.      
-        charLevels (list): List of lists, sublists contain characters from specified alphabet.
-        translateDict (Dictionary): Dictionary in which keys and values represents 1:1 transliteration.
-    """
-
-    introductionLevel = 1
-    levelsDict = {}
-
-    for level in charLevels:
-        levelsDict[introductionLevel] = {}
-
-        for character in level:
-            levelsDict[(introductionLevel)][character] = translate(character, translateDict)
-
-        introductionLevel += 1
-
-    jsonized = json.dumps(levelsDict, ensure_ascii=False, sort_keys=True, indent=4, separators=(',', ': '))
-    
-    with codecs.open(destinationFolder + '/intro.json',"w", "utf-8") as out:
-        out.write(jsonized)
-
-    print "Introduction levels file has been created in:",destinationFolder + '/intro.json'
 
 
 def wordsByLength(word, dictionary):
@@ -447,48 +342,48 @@ def wordsByLevel(word, charLevels, dictionary):
     return dictionary
 
 
-def generateLevel(display, translateDict, options):
+def generateLevel(display, translateDict, options, filename):
     """This method takes a word made of non-latin character, transliteration dictionary and list of words in latin alphabet
-    and creates dictionary which represents one level in quiz.
+    and creates single question for IS.MUNI ROPOT which is afterwards written/appended to template file.
 
     Args:
         display (string): Non-latin alphabet word which will be displayed to user to choose correct transliteration.
         translateDict (Dictionary): Dictionary in which keys and values represents 1:1 transliteration.
         options (list): List of words suitable for level creation.
-
-    Returns:
-        Dictionary: Returns dictionary where keys are levels and values are list of words suitable for such level.
+        filename (string): Name of file where question for IS.MUNI ROPOT will be written/appended to.
     """
 
-    shuffledOptions = []
+    transcriptedOptions = []
+    correctAnswer = translate(display,translateDict)
+    
     for option in options:
-        shuffledOptions.append(translate(option, translateDict))
+        transcriptedOptions.append(translate(option, translateDict))
 
-    shuffle(shuffledOptions)
-    levelDict = {}
-    levelDict["display"] = display
-    levelDict["correct"] = translate(display,translateDict)
-    levelDict["options"] = shuffledOptions
+    transcriptedOptions.remove(correctAnswer)
 
-    return levelDict
+    with codecs.open(os.path.join(target,filename), 'a', "utf-8") as testTemplate:
+        testTemplate.write(u"Vyberte správnou transkripci slova: " + display + "\n")
+        
+        for i in range(len(transcriptedOptions)):
+            testTemplate.write("\t:r" + str(i) + " " + transcriptedOptions[i] + "\n")
+
+        testTemplate.write("\t:r" + str(len(transcriptedOptions)) + " " + correctAnswer + "\n")
+        testTemplate.write(":r" + str(len(transcriptedOptions)) + " ok" + "\n")
+        testTemplate.write("--\n")
 
 
-def generateLevelAlternative(wordList, translateDict, similarCharsList):
+def generateLevelAlternative(wordList, translateDict, similarCharsList, filename):
     """This method takes a word made of latin character, transliteration dictionary and list of words in non-latin alphabet
-    and creates dictionary which represents one level in quiz.
+    and creates single question for IS.MUNI ROPOT which is afterwards written/appended to template file.
 
     Args:
         wordList (list): List of words suitable for level creation.
         translateDict (Dictionary): Dictionary in which keys and values represents 1:1 transliteration.
         similarCharsList (list): List of lists, sublists contain similar characters.
-
-    Returns:
-        Dictionary: Returns dictionary where keys are levels and values are list of words suitable for such level.
-        bool: It may happen that this operation is not succesful and level is not created, in this scenario returns False.
+        filename (string): Name of file where question for IS.MUNI ROPOT will be written/appended to.
     """
 
     wordList = wordList[:3]
-    shuffle(wordList)
     levelDict = {}
 
     for word in wordList:
@@ -498,48 +393,83 @@ def generateLevelAlternative(wordList, translateDict, similarCharsList):
             break
 
     for word in wordList:
-        translatedWord = translate(word, translateDict)
+        display = translate(word, translateDict)
 
-        if re.match('^[a-zA-Z]+$', translatedWord) is not None: # check if word contains only latin alphabet characters
-            levelDict["display"] = translatedWord
+        if re.match('^[a-zA-Z]+$', display) is not None: # check if word contains only latin alphabet characters
+            levelDict["display"] = display
             levelDict["correct"] = word
             levelDict["options"] = wordList
             break
 
     if not levelDict: # if levelDict is empty, return False to prevent creation of empty level
-        return False
+        return None
     
-    return levelDict
+    correctAnswer = levelDict["correct"]
+    display = levelDict["display"]
+    wordList.remove(correctAnswer)
+
+    with codecs.open(os.path.join(target,filename), 'a', "utf-8") as testTemplate:
+        testTemplate.write(u"Vyberte správnou transkripci slova: " + display + "\n")
+        
+        for i in range(len(wordList)):
+            testTemplate.write("\t:r" + str(i) + " " + wordList[i] + "\n")
+
+        testTemplate.write("\t:r" + str(len(wordList)) + " " + correctAnswer + "\n")
+        testTemplate.write(":r" + str(len(wordList)) + " ok" + "\n")
+        testTemplate.write("--\n")
 
 
-def generateUppercaseLevel(display, translateDict, options):
+
+def generateUppercaseLevel(display, translateDict, wordList, filename):
     """This method takes a word made of non-latin character, transliteration dictionary and list of words in latin alphabet
-    and creates dictionary which represents one level in quiz.
+    and creates single question for IS.MUNI ROPOT which is afterwards written/appended to template file.
 
     Args:
         display (string): Non-latin alphabet word which will be displayed to user to choose correct transliteration.
         translateDict (Dictionary): Dictionary in which keys and values represents 1:1 transliteration.
-        options (list): List of words suitable for level creation.
-
-    Returns:
-        Dictionary: Returns dictionary where keys are levels and values are list of words in upper case suitable for such level.
+        wordList (list): List of words suitable for level creation.
+        filename (string): Name of file where question for IS.MUNI ROPOT will be written/appended to.
     """
 
-    shuffledOptions = []
-    for option in options:
-        shuffledOptions.append(translate(option, translateDict))
+    transcriptedOptions = []
+    for word in wordList:
+        transcriptedOptions.append(translate(word, translateDict))
 
-    shuffle(shuffledOptions)
     levelDict = {}
-    levelDict["display"] = display.upper()
-    levelDict["correct"] = translate(display,translateDict).upper()
-    levelDict["options"] = [option.upper() for option in shuffledOptions]
+    display = display.upper()
+    correctAnswer = translate(display,translateDict).upper()
+    options = [option.upper() for option in transcriptedOptions]
+
+    options.remove(correctAnswer)
+
+    with codecs.open(os.path.join(target,filename), 'a', "utf-8") as testTemplate:
+        testTemplate.write(u"Vyberte správnou transkripci slova: " + display + "\n")
+        
+        for i in range(len(options)):
+            testTemplate.write("\t:r" + str(i) + " " + options[i] + "\n")
+
+        testTemplate.write("\t:r" + str(len(options)) + " " + correctAnswer + "\n")
+        testTemplate.write(":r" + str(len(options)) + " ok" + "\n")
+        testTemplate.write("--\n")
 
     return levelDict
 
 
-def generateLevelJson(course, wordlist, charLevels, translateDict, similarCharsList, supportsUppercase):
-    """This method creates JSON template which contains levels for course.
+def generateEndOfQuiz(filename):
+    """This method takes a name of file and appends '++' to the very end of the file which is recognised as
+    end of template by IS.MUNI ROPOT parser.
+
+    Args:
+        filename (string): Name of file where end of template for IS.MUNI ROPOT will be appended to its very end.
+    """
+
+    with codecs.open(os.path.join(target,filename), 'a', "utf-8") as testTemplate:
+        testTemplate.write("++")
+
+
+def generateISTemplates(course, wordlist, charLevels, translateDict, similarCharsList, supportsUppercase):
+    """This method creates multiple files in target folder specified by user as one of script arguments. Each file
+    represents a template for a single IS.MUNI ROPOT in 'qdef' format.
 
     Args:
         course (string): Name of the course.      
@@ -548,13 +478,9 @@ def generateLevelJson(course, wordlist, charLevels, translateDict, similarCharsL
         translateDict (Dictionary): Dictionary in which keys and values represents 1:1 transliteration.
         similarCharsList (list): List of lists, sublists contain similar characters.
         supportsUppercase (bool): True if alphabet supports upper case, False otherwise.
-
-    Returns:
-        int: Number of levels.
     """
 
     levelsDict= {}
-    level = 1
     stageByNumber = 1 # represents key of wordsByLevelDict to get wordlist value
     wordsByLengthDict = {}
     wordsByLevelDict = {}
@@ -567,43 +493,25 @@ def generateLevelJson(course, wordlist, charLevels, translateDict, similarCharsL
     for stage in charLevels:
 
         if not wordsByLevelDict.has_key(stageByNumber): # Skip the uppercase stages in charLevels
-            break
+            stageByNumber += 1
+            continue
 
         charLevelsWordList = wordsByLevelDict[stageByNumber] # contains list of words suitable for current stage
         selectedOptions = makeWordOptions(charLevelsWordList, similarCharsList) # List of 3 sublists containing options or None
 
         if selectedOptions is not None:
 
-            firstLevel = level
-
             for i in range(len(selectedOptions)):
-                    levelsDict[level] = generateLevel(random.choice(selectedOptions[i]), translateDict, selectedOptions[i])
-                    level += 1
-
-                    alternativeLevel = generateLevelAlternative(selectedOptions[i], translateDict, similarCharsList)
-                    if alternativeLevel: # alternative level might be empty when mapping latin character to non-latin is not 1:1
-                        levelsDict[level] = alternativeLevel
-                        level += 1
+                    generateLevel(random.choice(selectedOptions[i]), translateDict, selectedOptions[i], name+str(stageByNumber)+".qdef")
+                    generateLevelAlternative(selectedOptions[i], translateDict, similarCharsList, name+str(stageByNumber)+".qdef")
 
                     if supportsUppercase:
-                        levelsDict[level] = generateUppercaseLevel(random.choice(selectedOptions[i]), translateDict, selectedOptions[i])
-                        level += 1
+                        generateUppercaseLevel(random.choice(selectedOptions[i]), translateDict, selectedOptions[i], name+str(stageByNumber)+".qdef")
 
-            introToLevelMap[stageByNumber] = (firstLevel, level - 1) # Relation of character introduction levels and quiz levels
-
+        generateEndOfQuiz(name+str(stageByNumber)+".qdef")
         stageByNumber += 1
 
-        if supportsUppercase and selectedOptions is not None:
-            
-            firstLevel = level
-            for i in range(len(selectedOptions)):
-
-                        levelsDict[level] = generateUppercaseLevel(random.choice(selectedOptions[i]), translateDict, selectedOptions[i])
-                        level += 1
-
-            introToLevelMap[stageByNumber] = (firstLevel, level - 1)
-            stageByNumber += 1
-
+    # generate practice levels
     for i in range(30):
         selectedWords = wordsByLengthDict[random.choice(wordsByLengthDict.keys())]
         if len(selectedWords) >= 3:
@@ -615,126 +523,16 @@ def generateLevelJson(course, wordlist, charLevels, translateDict, similarCharsL
                     quizRandomSelection.append(trickWord)
                     break
 
-            levelsDict[level] = generateLevel(random.choice(quizRandomSelection), translateDict, quizRandomSelection)
-            level += 1
-
-            alternativeLevel = generateLevelAlternative(quizRandomSelection, translateDict, similarCharsList)
-            if alternativeLevel: # alternative level might be empty when mapping latin character to non-latin is not 1:1
-                levelsDict[level] = alternativeLevel
-                level += 1
+            generateLevel(quizRandomSelection[0], translateDict, quizRandomSelection, name+"Practice.qdef")
+            generateLevelAlternative(quizRandomSelection, translateDict, similarCharsList, name+"Practice.qdef")
 
             if supportsUppercase:
-                levelsDict[level] = generateUppercaseLevel(random.choice(quizRandomSelection), translateDict, quizRandomSelection)
-                level += 1
+                generateUppercaseLevel(quizRandomSelection[0], translateDict, quizRandomSelection, name+"Practice.qdef")
 
-    level -= 1
-    introToLevelMap[stageByNumber - 1] = (introToLevelMap[stageByNumber - 1][0], level)
-
-    dicToJson = json.dumps(levelsDict,sort_keys=True,ensure_ascii=False, indent=4, separators=(',', ': '))
-    with codecs.open(destinationFolder + '/level.json',"w", "utf-8") as out:
-        out.write(dicToJson)
-
-    print "Levels file has been created in:", destinationFolder + '/level.json'
-
-    return level
-
-
-def class_for_name(className):
-    """This method return Class from Models.py file based on string name of such class.
-
-    Args:
-        className (string): Name of class in Models.py file.
-
-    Returns:
-        Class: Class from Models.py file.
-    """
-
-    reload(models)
-    module = importlib.import_module("project.models")
-    clazz = getattr(module, className)
-
-    return clazz
-
-
-def migrateUsers(courseClass):
-    """This method takes all existing users in database and migrates them to the specific course table
-    accesible by class from Models.py, where every course table has its own class representation.
-
-    Args:
-        courseClass (Class): Class from models.py file.
-    """
-
-    userEmails = db.session.query(User.email).all()
-
-    for email in userEmails:
-        registerCourse = courseClass(email = email[0])
-        db.session.add(registerCourse)
-
-    db.session.commit()
-
-
-def appendModels(numberOfLevels, characterStatistics, chapterProgress):
-    """This method appends new class to Models.py file, which is very important to Flask application structure.
-    Also when migration is invoked by Flask-migrate and Alembic tools, the database is affected by changes done in 
-    Models.py file so appending new class representing specific course to this file results in creating table in
-    database for this course and helps to automate this process.
-
-    Args:
-        numberOfLevels (int): The number of levels in specific course.
-        characterStatistics (dict): 
-        chapterProgress (dict):
-    """
-
-    numberOfLevels = str(numberOfLevels)
-
-    with open (modelsFile, 'a') as models:
-        models.write("\n\n")
-        models.write("class " + name.capitalize() + "(db.Model):\n")
-        models.write('\t__tablename__ = "' + name + '"\n')
-        models.write("\t__table_args__ = {'extend_existing':True}\n\n")
-        models.write("\temail = db.Column(db.String, primary_key=True, unique=True, nullable=False)\n")
-        models.write("\tlevel = db.Column(db.Integer,nullable=False, default=1)\n")
-        models.write("\tmaxLevel = db.Column(db.Integer, nullable=False, default=" + numberOfLevels + ")\n")
-        models.write("\tintroLevel = db.Column(db.Integer,nullable=False, default=1)\n")
-        models.write("\tintroToLevelMap = db.Column(db.String, nullable=False, default='" + str(introToLevelMap) + "')\n")
-        models.write('\tcharStats = db.Column(db.String, nullable=False, default="' + str(characterStatistics) + '")\n')
-        models.write('\tchapterProgress = db.Column(db.String, nullable=False, default="' + str(chapterProgress) + '")\n')
-        models.write("\tanswersHistory = db.Column(db.String, nullable=False, default='{}')\n")
-        models.write("\twrongAnswers = db.Column(db.String, nullable=False, default='[]')\n\n")
-        models.write('\tdef __init__(self, email, wrongAnswers="[]", answersHistory="{}", level=1, introLevel=1, maxLevel=' + \
-            numberOfLevels + ', introToLevelMap="' + str(introToLevelMap) + '",\\\n\t\t\t\tcharStats="' + str(characterStatistics) + \
-             '",\\\n\t\t\t\tchapterProgress="' + str(chapterProgress) + '"):\n')
-        models.write("\t\tself.email = email\n")
-        models.write("\t\tself.level = level\n")
-        models.write("\t\tself.introLevel = introLevel\n")
-        models.write("\t\tself.maxLevel = maxLevel\n")
-        models.write("\t\tself.introToLevelMap = introToLevelMap\n")
-        models.write("\t\tself.charStats = charStats\n")
-        models.write("\t\tself.chapterProgress = chapterProgress\n")
-        models.write("\t\tself.wrongAnswers = wrongAnswers\n")
-        models.write("\t\tself.answersHistory = answersHistory\n\n")
-        models.write("\tdef get_level(self):\n")
-        models.write("\t\treturn self.level\n\n")
-        models.write("\tdef get_introLevel(self):\n")
-        models.write("\t\treturn self.introLevel\n\n")
-        models.write("\tdef get_maxLevel(self):\n")
-        models.write("\t\treturn self.maxLevel\n\n")
-        models.write("\tdef get_introToLevelMap(self):\n")
-        models.write("\t\treturn self.introToLevelMap\n\n")
-        models.write("\tdef get_charStats(self):\n")
-        models.write("\t\treturn self.charStats\n\n")
-        models.write("\tdef get_chapterProgress(self):\n")
-        models.write("\t\treturn self.chapterProgress\n\n")
-        models.write("\tdef get_wrongAnswers(self):\n")
-        models.write("\t\treturn self.wrongAnswers\n\n")
-        models.write("\tdef get_answersHistory(self):\n")
-        models.write("\t\treturn self.answersHistory\n\n")
+    generateEndOfQuiz(name+"Practice.qdef")
 
 
 def main():
-
-    print "Starting automated course integration procedure"
-    print "This operation may take several minutes to complete"
 
     count = Counter()
     translateDict = getTranslateDict()
@@ -743,9 +541,6 @@ def main():
     filteredWordlist = []
 
     with codecs.open(wordlist,"r","utf-8") as wordlistFile:
-
-        print "Analyzing corpus file..."
-
         for line in wordlistFile:
             word = line.split(',')[0].lower()
             wordFreq = line.split(',')[-1]
@@ -770,21 +565,12 @@ def main():
         freqArray = sorted(count, key=count.get, reverse=True)
         charLevels = getCharLevels(freqArray, filteredWordlist, supportsUppercase)
 
-        # Check for destination folder, create if not exists
-        if not os.path.exists(destinationFolder):
-            os.makedirs(destinationFolder)
-            print "Destination folder was created in:", destinationFolder
+        #Check for destination folder, create if not exists
+        if not os.path.exists(target):
+            os.makedirs(target)
+            print "Destination folder was created in:", target
 
-        generateIntroJson(name, charLevels, translateDict)
-        numberOfLevels = generateLevelJson(name, filteredWordlist, charLevels, translateDict, similarCharsList, supportsUppercase)
-        characterStatistics = getCharStats(charLevels)
-        chapterProgress = getChapterProgress()
-        #appendModels(numberOfLevels, characterStatistics, chapterProgress)
-        #subprocess.call(['python', 'manage.py', 'db', 'migrate'])
-        #subprocess.call(['python', 'manage.py', 'db', 'upgrade'])
-        #courseClass = class_for_name(name.capitalize())
-        #migrateUsers(courseClass)
-        print "Operation was successful."   
+        generateISTemplates(name, filteredWordlist, charLevels, translateDict, similarCharsList, supportsUppercase)
 
 
 

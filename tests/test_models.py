@@ -1,13 +1,12 @@
 # tests/test_models.py
 
-import datetime
-import unittest
-
-from flask_login import current_user
-
 from project import bcrypt
 from project.util import BaseTestCase
 from project.models import User
+
+from flask_login import current_user
+import datetime
+import unittest
 
 
 class TestUser(BaseTestCase):

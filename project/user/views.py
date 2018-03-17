@@ -1,12 +1,11 @@
-from flask import render_template, Blueprint, url_for, \
-    redirect, flash, request
-from flask_login import login_user, logout_user, \
-    login_required, current_user
-
 from project.models import *
 from project import db, bcrypt, models
 from .forms import LoginForm, RegisterForm, ChangePasswordForm
 
+from flask import render_template, Blueprint, url_for, \
+    redirect, flash, request
+from flask_login import login_user, logout_user, \
+    login_required, current_user
 import importlib
 import inspect
 

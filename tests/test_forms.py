@@ -1,9 +1,9 @@
 # tests/test_forms.py
 
-import unittest
-
 from project.util import BaseTestCase
 from project.user.forms import RegisterForm, LoginForm
+
+import unittest
 
 
 class TestRegisterForm(BaseTestCase):

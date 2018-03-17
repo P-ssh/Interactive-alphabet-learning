@@ -1,12 +1,11 @@
-import os
-import unittest
-import coverage
+from project import app, db
+from project.models import *
 
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
-
-from project import app, db
-from project.models import *
+import os
+import unittest
+import coverage
 
 
 app.config.from_object('project.config.DevelopmentConfig')

@@ -1,10 +1,11 @@
 # tests/test_functional.py
 
-import unittest
+from project.util import BaseTestCase
 
 from flask_login import current_user
+import unittest
 
-from project.util import BaseTestCase
+
 
 
 class TestPublic(BaseTestCase):

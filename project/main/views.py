@@ -1,21 +1,20 @@
-from flask import render_template, Blueprint, url_for, \
-    redirect, flash, request
-from flask_login import login_required, current_user
-
 from project.models import *
 from project import db, models
 from .forms import  QuizForm
 
+from flask import render_template, Blueprint, url_for, \
+    redirect, flash, request
+from flask_login import login_required, current_user
+from operator import itemgetter
+from bisect import insort, bisect_left
+from datetime import datetime
 from random import randint
+from math import floor
 import ast
 import os
 import json
-from math import floor
-from datetime import datetime
 import importlib
 import inspect
-from operator import itemgetter
-from bisect import insort, bisect_left
 
 
 main_blueprint = Blueprint('main', __name__,)

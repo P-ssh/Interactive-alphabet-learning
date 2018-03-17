@@ -1,11 +1,10 @@
 # tests/test_config.py
 
-import unittest
+from project import app
 
 from flask import current_app
 from flask_testing import TestCase
-
-from project import app
+import unittest
 
 
 class TestTestingConfig(TestCase):
