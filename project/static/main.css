@@ -18,7 +18,8 @@ ul.courses{
   font-family: 'Open Sans';
   font-size: 22px;
   font-weight: 600;
-  padding-right: 50%;
+  /*padding-right: 50%;*/
+  margin-right: 30px;
   text-align: center;
 }
 
@@ -286,7 +287,14 @@ ul.courses{
 }
 
 /* Courses list part */
-* {
+.coursesList {
+  margin: auto;
+  width: 90%;
+  max-width: 360px;
+  padding: 10px;
+}
+
+ *{
   margin: 0; 
   padding: 0;
 }
@@ -297,7 +305,7 @@ ul.courses{
 
 div.coursesList ul {
   list-style-type: none;
-  width: 30%;
+  /*width: 30%;*/
 }
 
 div.coursesList ul a {
