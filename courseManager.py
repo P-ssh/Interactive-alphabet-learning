@@ -211,7 +211,7 @@ def getSimilarChars():
 
     with codecs.open(similar, 'r', 'utf-8') as similarChars:
         for line in similarChars:
-            similarCharsSublist = line.split(',')
+            similarCharsSublist = line.strip().split(',')
             similarCharsList.append(similarCharsSublist)
 
     return similarCharsList
@@ -494,13 +494,15 @@ def generateLevelAlternative(wordList, translateDict, similarCharsList):
     for word in wordList:
         trickWord = findAndReplaceSimilarChar(word, wordList, similarCharsList)
         if trickWord:
-            wordList.append(trickWord)
             break
 
     for word in wordList:
         translatedWord = translate(word, translateDict)
 
         if re.match('^[a-zA-Z]+$', translatedWord) is not None: # check if word contains only latin alphabet characters
+            if trickWord:
+                wordList.append(trickWord)
+
             levelDict["display"] = translatedWord
             levelDict["correct"] = word
             levelDict["options"] = wordList
@@ -779,11 +781,11 @@ def main():
         numberOfLevels = generateLevelJson(name, filteredWordlist, charLevels, translateDict, similarCharsList, supportsUppercase)
         characterStatistics = getCharStats(charLevels)
         chapterProgress = getChapterProgress()
-        #appendModels(numberOfLevels, characterStatistics, chapterProgress)
-        #subprocess.call(['python', 'manage.py', 'db', 'migrate'])
-        #subprocess.call(['python', 'manage.py', 'db', 'upgrade'])
-        #courseClass = class_for_name(name.capitalize())
-        #migrateUsers(courseClass)
+        appendModels(numberOfLevels, characterStatistics, chapterProgress)
+        subprocess.call(['python', 'manage.py', 'db', 'migrate'])
+        subprocess.call(['python', 'manage.py', 'db', 'upgrade'])
+        courseClass = class_for_name(name.capitalize())
+        migrateUsers(courseClass)
         print "Operation was successful."   
 
 

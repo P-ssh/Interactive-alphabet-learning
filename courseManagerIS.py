@@ -7,12 +7,13 @@ import argparse
 import inspect
 import codecs
 import random
+import json
 import os
 import re
 
 
 parser = argparse.ArgumentParser(description='This script is used to create course templates in "qdef" format which are used to \
-    create new FI.MUNI ROPOT.')
+    create new MUNI ROPOT.')
 parser.add_argument('-n', '--coursename', required=True, help='Name of the course that will be added into application. e.g. "mchedruli".')
 parser.add_argument('-wl', '--wordlist', required=True, help='Path to the corpus file. \
     Each line of this file should be in following format: "word","word frequency" separated by comma. E.g. რომელიც,143927')
@@ -23,8 +24,8 @@ parser.add_argument('-s', '--similar', help='File with similar characters groups
     characters must be separated by comma. E.g. ღ,დ,ფ,თ')
 parser.add_argument('-t', '--target', required=True, help='Path to the folder where templates for IS.MUNI ROPOT application will be created. \
     It also creates the folder if it does not already exists. E.g. /home/Documents/Mchedruli/')
-parser.add_argument('-l', '--limit', type=int, default=10, help='Only words from corpus with frequency greater or equal to this value \
-will be processed. Default value is 10.')
+parser.add_argument('-l', '--limit', type=int, default=50, help='Only words from corpus with frequency greater or equal to this value \
+will be processed. Default value is 50.')
 
 args = parser.parse_args()
 name = args.coursename.lower()
@@ -133,7 +134,7 @@ def getSimilarChars():
 
     with codecs.open(similar, 'r', 'utf-8') as similarChars:
         for line in similarChars:
-            similarCharsSublist = line.split(',')
+            similarCharsSublist = line.strip().split(',')
             similarCharsList.append(similarCharsSublist)
 
     return similarCharsList
@@ -228,6 +229,29 @@ def getCharLevels(freqArray, filteredWordlist, supportsUppercase):
     return charLevels
 
 
+def createCharLevelsMapping(charLevels, translateDict):
+    """This method creates file which serves as mapping of characters and ROPOT templates.
+
+    Args:
+        charLevelsWordList (list): List of lists, sublists contain characters from specified alphabet.
+        translateDict (dict): Dictionary in which keys and values represents 1:1 transliteration.
+
+    """
+
+    mappingDict = {}
+
+    for i in range(len(charLevels)):
+        mappingDict[i + 1] = {}
+        for char in charLevels[i]:
+            mappingDict[i + 1][char] = translate(char, translateDict)
+
+    jsonized = json.dumps(mappingDict, ensure_ascii=False, sort_keys=True, indent=4, separators=(',', ': '))
+
+    with codecs.open(target + '/characterMapping.json',"w", "utf-8") as out:
+        out.write(jsonized)
+
+    print "Character mapping file has been created in: " + target + 'characterMapping.json'
+
 
 def makeWordOptions(charLevelsWordList, similarCharsList):
     """This method creates list of 3 sublists, each sublist contains 3-4 words suitable for level creation.
@@ -249,7 +273,7 @@ def makeWordOptions(charLevelsWordList, similarCharsList):
 
     wordsByLengthDictKeys = wordsByLengthDict.keys()
 
-    while (len(selectedOptionsList) < 3) and (len(wordsByLengthDictKeys) > 0):
+    while (len(selectedOptionsList) < 5) and (len(wordsByLengthDictKeys) > 0):
         randomDictKey = random.choice(wordsByLengthDictKeys)
         randomDictValue = wordsByLengthDict[randomDictKey] # list of words of same length
         shuffle(randomDictValue)
@@ -279,7 +303,7 @@ def makeWordOptions(charLevelsWordList, similarCharsList):
             wordsByLengthDictKeys.remove(randomDictKey)
             continue
 
-    if len(selectedOptionsList) == 3:
+    if len(selectedOptionsList) >= 3:
         return selectedOptionsList
 
     else:
@@ -389,13 +413,15 @@ def generateLevelAlternative(wordList, translateDict, similarCharsList, filename
     for word in wordList:
         trickWord = findAndReplaceSimilarChar(word, wordList, similarCharsList)
         if trickWord:
-            wordList.append(trickWord)
             break
 
     for word in wordList:
         display = translate(word, translateDict)
 
         if re.match('^[a-zA-Z]+$', display) is not None: # check if word contains only latin alphabet characters
+            if trickWord:
+                wordList.append(trickWord)
+            
             levelDict["display"] = display
             levelDict["correct"] = word
             levelDict["options"] = wordList
@@ -531,8 +557,13 @@ def generateISTemplates(course, wordlist, charLevels, translateDict, similarChar
 
     generateEndOfQuiz(name+"Practice.qdef")
 
+    print "New MUNI ROPOT templates has been created in: " + target
+
 
 def main():
+
+    print "Generating templates for MUNI ROPOT has started"
+    print "This operation may take several minutes to complete"
 
     count = Counter()
     translateDict = getTranslateDict()
@@ -541,6 +572,9 @@ def main():
     filteredWordlist = []
 
     with codecs.open(wordlist,"r","utf-8") as wordlistFile:
+
+        print "Analyzing corpus file..."
+
         for line in wordlistFile:
             word = line.split(',')[0].lower()
             wordFreq = line.split(',')[-1]
@@ -571,6 +605,8 @@ def main():
             print "Destination folder was created in:", target
 
         generateISTemplates(name, filteredWordlist, charLevels, translateDict, similarCharsList, supportsUppercase)
+        createCharLevelsMapping(charLevels, translateDict)
+        print "Operation was successful."
 
 
 
