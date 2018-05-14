@@ -25,6 +25,32 @@ modelsFile = os.path.join(projectDir, 'models.py')
 templatesDir = os.path.join(projectDir, 'templates', 'courses')
 
 
+def loadIntroTemplates():
+
+    introTemplatesDict = {}
+    courses = getCoursesFromModels()
+
+    for course in courses:
+        with open(os.path.join(templatesDir, course.lower(), 'intro.json')) as jsondata:
+            data = json.load(jsondata)
+            introTemplatesDict[course.capitalize()] = data
+
+    return introTemplatesDict
+
+
+def loadLevelTemplates():
+
+    levelTemplatesDict = {}
+    courses = getCoursesFromModels()
+
+    for course in courses:
+        with open(os.path.join(templatesDir, course.lower(), 'level.json')) as jsondata:
+            data = json.load(jsondata)
+            levelTemplatesDict[course.capitalize()] = data
+
+    return levelTemplatesDict  
+
+
 def getCoursesFromModels():
     """This method imports and inspects Models.py file and adds name of its classes to the list.
     User class is skipped so it is not added into list of courses.
@@ -165,6 +191,7 @@ def setChapterProgress(chapterProgressDict, chapter, correct, chapterToLevelMap=
             chapterProgressDict[chapter]["repeatLevel"] += 1
 
         else:
+            chapterProgressDict[chapter]["repeatLevel"] += 1
             chapterProgressDict[chapter]["status"] = "Done"
 
     return str(chapterProgressDict)
@@ -211,7 +238,7 @@ def resetChapters(chapterProgressDict, introToLevelMap):
 
 
 def generateQuestion(course, level):
-    """This method loads JSON course template and returns dictionary which represents single level using level argument.
+    """This method uses loaded levels dictionary and returns dictionary which represents single level using level argument.
 
     Args:
         course (str): Name of the course.
@@ -221,14 +248,11 @@ def generateQuestion(course, level):
         dictionary: Return dictionary which represents single level from JSON course template.
     """
 
-    with open(os.path.join(templatesDir, course.lower(), 'level.json')) as jsondata:
-        data = json.load(jsondata)
-
-        return data[str(level)]
+    return levelsDict[course][str(level)]
 
 
 def introduceLetters(course, introLevel):
-    """This method loads JSON character introduction template and returns dictionary which represents single character
+    """This method uses loaded character introduction dictionary and returns dictionary which represents single character
     introduction using introLevel argument.
 
     Args:
@@ -239,10 +263,7 @@ def introduceLetters(course, introLevel):
         dictionary: Return dictionary which represents single character introduction level from JSON template.
     """
 
-    with open(os.path.join(templatesDir, course.lower(), 'intro.json')) as jsondata:
-        data = json.load(jsondata)
-
-        return data[str(introLevel)]
+    return introDict[course][str(introLevel)]
 
 
 def storeWrongAnswer(wrongAnswers, level):
@@ -405,7 +426,7 @@ def courseOverview(course):
     return render_template('courses/course.html'.format(course), currentLevel=currentLevel, \
         maxLevel=maxLevel, percentageProgress=percentageProgress, course=course.capitalize(), 
         answersHistory=answersHistoryDict, charStats=charStatsDict, charStatsKeys=charStatsKeys,
-        chapterData=chapterProgressDict) 
+        chapterData=chapterProgressDict, introToLevelMapDict=introToLevelMapDict) 
 
 
 @main_blueprint.route('/courses/<course>/quiz',methods=['GET','POST'])
@@ -604,21 +625,22 @@ def repeatChapter(course):
     charStatsDict = ast.literal_eval(charStats)
 
     currentLevel = chapterProgressDict[chapter]["repeatLevel"]
-    maxLevel = chapterProgressDict[chapter]["progress"]["total"]
+    currentDisplay = chapterProgressDict[chapter]["repeatLevel"] - introToLevelMapDict[chapter][0]
+    maxLevel = introToLevelMapDict[chapter][1] - introToLevelMapDict[chapter][0] + 1
 
     if chapterProgressDict[chapter]["status"] == "Done":
         
-        if chapterProgressDict[chapter]["repeatLevel"] == 0:
+        if chapterProgressDict[chapter]["repeatLevel"] == introToLevelMapDict[chapter][0]:
             chapterProgressDict = resetChapterProgress(chapterProgressDict, chapter, introToLevelMapDict[chapter][0])
 
-        else:
-            chapterProgressDict[chapter]["repeatLevel"] = 0
+        elif chapterProgressDict[chapter]["repeatLevel"] > introToLevelMapDict[chapter][1]:
+            chapterProgressDict[chapter]["repeatLevel"] = introToLevelMapDict[chapter][0]
             userData.chapterProgress = str(chapterProgressDict)
             db.session.commit()
             flash("Chapter repetition has ended, check your results", 'success')
             return redirect(url_for('main.courseOverview', course=course))
 
-    percentageProgress = getPercentage(currentLevel, maxLevel)
+    percentageProgress = getPercentage(currentDisplay, maxLevel)
     dic = generateQuestion(course, currentLevel)
     display = dic["display"]
     correct = dic["correct"]
@@ -643,7 +665,7 @@ def repeatChapter(course):
             flash("Wrong answer " + "(" + display + " - " + correct + ")", 'danger')
             return redirect(url_for('main.repeatChapter', course=course, chapter=chapter))
 
-    return render_template('courses/level.html', form=form, display=display, currentLevel=currentLevel, \
+    return render_template('courses/level.html', form=form, display=display, currentLevel=currentDisplay, \
         maxLevel=maxLevel, percentageProgress=percentageProgress)
 
 
@@ -681,8 +703,8 @@ def repeatLevel(course):
         userData.answersHistory = storeToAnswersHistory(answersHistory, level, quizForm == correct)
         userData.charStats = setCharStats(charStatsDict, (display, correct), quizForm == correct)
 
+        db.session.commit()
         if quizForm == correct:
-            db.session.commit()
             flash("Nice job", 'success')
             return redirect(url_for('main.courseOverview', course=course))
 
@@ -778,3 +800,9 @@ def practicePostHandler(course):
             return redirect(url_for('main.practice', course=course))
 
     return render_template('courses/practice.html', form=form, display=display)
+
+
+
+# Load course templates into memory
+introDict = loadIntroTemplates()
+levelsDict = loadLevelTemplates()

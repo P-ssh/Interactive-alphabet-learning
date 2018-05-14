@@ -88,7 +88,18 @@ function toggleTable(tableId) {
                             </a>
                         </td>
                     {% else %}
-                        <td>Not completed</td>
+
+                        {% if chapterData[key]["repeatLevel"] != introToLevelMapDict[key][0] %}
+                            <td>  
+                                <a href = "{{ url_for('main.repeatChapter', course=course, chapter=key)}}">
+                                    <input type = "button" class = "Repeat-button" value="Continue">
+                                </a>
+                            </td>
+
+                        {% else %}
+                            <td>Not completed</td>
+                        {% endif %}
+
                     {% endif %}
                 </tr>
             {% endfor %}
