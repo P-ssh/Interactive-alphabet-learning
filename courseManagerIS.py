@@ -221,8 +221,7 @@ def getCharLevels(freqArray, filteredWordlist, supportsUppercase):
     if supportsUppercase:
         result = []
         for level in charLevels:
-            result.append(level)
-            result.append([char.upper() for char in level])
+            result.append(level + [char.upper() for char in level])
 
         return result
 

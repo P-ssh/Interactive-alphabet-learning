@@ -302,6 +302,9 @@ def getCharLevels(freqArray, filteredWordlist, supportsUppercase):
             result.append(level)
             result.append([char.upper() for char in level])
 
+        # Merge last two sublists together so the final level contains both lowercase and uppercase characters
+        #result = result[:len(result) - 2] + [result[len(result) - 2] + result[len(result) - 1]]
+
         return result
 
     return charLevels
@@ -585,10 +588,6 @@ def generateLevelJson(course, wordlist, charLevels, translateDict, similarCharsL
                     alternativeLevel = generateLevelAlternative(selectedOptions[i], translateDict, similarCharsList)
                     if alternativeLevel: # alternative level might be empty when mapping latin character to non-latin is not 1:1
                         levelsDict[level] = alternativeLevel
-                        level += 1
-
-                    if supportsUppercase:
-                        levelsDict[level] = generateUppercaseLevel(random.choice(selectedOptions[i]), translateDict, selectedOptions[i])
                         level += 1
 
             introToLevelMap[stageByNumber] = (firstLevel, level - 1) # Relation of character introduction levels and quiz levels

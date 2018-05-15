@@ -90,4 +90,3 @@ class Mchedruli(db.Model):
 
 	def get_answersHistory(self):
 		return self.answersHistory
-

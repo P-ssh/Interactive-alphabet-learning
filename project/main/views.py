@@ -33,7 +33,7 @@ def loadIntroTemplates():
     for course in courses:
         with open(os.path.join(templatesDir, course.lower(), 'intro.json')) as jsondata:
             data = json.load(jsondata)
-            introTemplatesDict[course.capitalize()] = data
+            introTemplatesDict[course.lower()] = data
 
     return introTemplatesDict
 
@@ -46,7 +46,7 @@ def loadLevelTemplates():
     for course in courses:
         with open(os.path.join(templatesDir, course.lower(), 'level.json')) as jsondata:
             data = json.load(jsondata)
-            levelTemplatesDict[course.capitalize()] = data
+            levelTemplatesDict[course.lower()] = data
 
     return levelTemplatesDict  
 
@@ -424,7 +424,7 @@ def courseOverview(course):
         return redirect(url_for('main.courseOverview', course=course))
 
     return render_template('courses/course.html'.format(course), currentLevel=currentLevel, \
-        maxLevel=maxLevel, percentageProgress=percentageProgress, course=course.capitalize(), 
+        maxLevel=maxLevel, percentageProgress=percentageProgress, course=course, 
         answersHistory=answersHistoryDict, charStats=charStatsDict, charStatsKeys=charStatsKeys,
         chapterData=chapterProgressDict, introToLevelMapDict=introToLevelMapDict) 
 
