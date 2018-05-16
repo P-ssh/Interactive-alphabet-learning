@@ -33,7 +33,7 @@ class ReverseProxied(object):
 
 app = Flask(__name__)
 app.config.from_object('project.config.DevelopmentConfig')
-app.wsgi_app = ReverseProxied(app.wsgi_app, script_name='/alpha')
+app.wsgi_app = ReverseProxied(app.wsgi_app, script_name='/projekty/alphabet_learning')
 
 login_manager = LoginManager()
 login_manager.init_app(app)
