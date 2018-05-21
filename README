@@ -1,26 +1,38 @@
 Live application available at: https://nlp.fi.muni.cz/projekty/alphabet_learning
 
-Execute 'python courseManager.py -h' or 'python courseManagerIS.py -h' to display help for these tools.
+Prerequisities:
+
+    1. Linux OS (developed and tested using Ubuntu 14.04.5 LTS)
+    2. Python 2.7
+    3. Pip and pipenv (developed and tested using pip 9.0.1 and pipenv 11.1.6)
+
+
+Set up and enter virtual environment:
+
+    1. To create virtual environment execute 'pipenv install'
+    2. To enter virtual environment shell execute 'pipenv shell'
+    3. Inside virtual environment shell it is possible to execute 'python courseManager.py -h' or
+        'python courseManagerIS.py -h' to display help for these tools
+    4. It is also possible to execute following commands:
+        4.1. 'python manage.py test' to run tests
+        4.2. 'python manage.py coverageTest' to run tests with coverage analysis
+        4.3. 'python manage.py create_db' or 'python manage.py drop_db' to create/drop database
+        4.4. 'python manage.py runserver --port 5000 --host 127.0.0.1' to run application at specific location
+
 
 How to make own deployment:
 
-    Prerequisities:
-         1. Linux OS (developed and tested using Ubuntu 14.04.5 LTS)
-         2. Python 2.7
-         3. Pip and pipenv (developed and tested using pip 9.0.1 and pipenv 11.1.6)
-
-   Instructions:
-         1. Open file project/__init__.py, ispect and edit/remove use of reverse proxy wrapper
-         2. Set up Apache server or Nginx (Yes, it is quite tricky. I will write down some tips for Apache alternative)
-             2.1. Install apache2: 'sudo apt-get install apache2 apache2-doc apache2-utils'
-             2.2. Install following: 
-                                    'sudo apt-get install libapache2-mod-proxy-uwsgi'
-                                    'sudo a2enmod proxy'
-                                    'sudo a2enmod proxy_http'
-             2.3. Edit apache config and edit reverse proxy wrapper mentioned in step 1
-             2.4. Restart apache: 'sudo service apache2 restart'
-         3. Navigate to the root folder of project (same folder where this README document is located)
-         4. Execute 'pipenv install' (this command will create virtual environment for this project)
-         5. If step 4 was successful execute 'pipenv shell' to enter virtual environment
-         6. It is time to run the application, execute 'python manage.py runserver --port 5000 --host 127.0.0.1' (adjust port/host values)
-         7. Application should be running now at specified location
+     1. Open file project/__init__.py, ispect and edit/remove use of reverse proxy wrapper
+     2. Set up Apache server or Nginx (Yes, it is quite tricky. I will write down some tips for Apache alternative)
+         2.1. Install apache2: 'sudo apt-get install apache2 apache2-doc apache2-utils'
+         2.2. Install following: 
+                                'sudo apt-get install libapache2-mod-proxy-uwsgi'
+                                'sudo a2enmod proxy'
+                                'sudo a2enmod proxy_http'
+         2.3. Edit apache config and edit reverse proxy wrapper mentioned in step 1
+         2.4. Restart apache: 'sudo service apache2 restart'
+     3. Navigate to the root folder of project (same folder where this README document is located)
+     4. Execute 'pipenv install' (this command will create virtual environment for this project)
+     5. If step 4 was successful execute 'pipenv shell' to enter virtual environment
+     6. It is time to run the application, execute 'python manage.py runserver --port 5000 --host 127.0.0.1' (adjust port/host values)
+     7. Application should be running now at specified location
