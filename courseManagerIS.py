@@ -24,8 +24,8 @@ parser.add_argument('-s', '--similar', help='File with similar characters groups
     characters must be separated by comma. E.g. ღ,დ,ფ,თ')
 parser.add_argument('-t', '--target', required=True, help='Path to the folder where templates for IS.MUNI ROPOT application will be created. \
     It also creates the folder if it does not already exists. E.g. /home/Documents/Mchedruli/')
-parser.add_argument('-l', '--limit', type=int, default=50, help='Only words from corpus with frequency greater or equal to this value \
-will be processed. Default value is 50.')
+parser.add_argument('-l', '--limit', type=int, default=10, help='Only words from corpus with frequency greater or equal to this value \
+will be processed. Default value is 10.')
 
 args = parser.parse_args()
 name = args.coursename.lower()

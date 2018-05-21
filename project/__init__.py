@@ -8,6 +8,9 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.serving import run_simple
 from werkzeug.wsgi import DispatcherMiddleware
 
+# Wrapper used for reverse proxy
+# See more at: http://blog.macuyiko.com/post/2016/fixing-flask-url_for-when-behind-mod_proxy.html
+# See more at: http://flask.pocoo.org/snippets/35/
 class ReverseProxied(object):
 
     def __init__(self, app, script_name=None, scheme=None, server=None):
@@ -33,6 +36,8 @@ class ReverseProxied(object):
 
 app = Flask(__name__)
 app.config.from_object('project.config.DevelopmentConfig')
+
+# adjust/remove next line to suit your needs
 app.wsgi_app = ReverseProxied(app.wsgi_app, script_name='/projekty/alphabet_learning')
 
 login_manager = LoginManager()

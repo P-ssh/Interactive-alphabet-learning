@@ -344,7 +344,7 @@ def storeToAnswersHistory(answersHistory, questionNumber, correct):
 
 #routes
 @main_blueprint.route('/')
-@login_required
+#@login_required
 def home():
     """This method represents route to the 'index.html' page.
 

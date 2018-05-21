@@ -1,6 +1,22 @@
 {% extends "_base.html" %}
 {% block content %}
 
-<h1>Welcome, {{current_user.username}}!</h1>
+<div class="mainPage">
+{% if current_user.is_authenticated %}
 
+	<h1>Welcome, {{current_user.username}}!</h1>
+	<br>
+	<p>Click on Courses tab or use the drop down menu if you are using mobile device.</p>
+
+{% else %}
+
+   <h1>Hello, Stranger!</h1>
+   <br>
+   <p>It's good to see you here. Are you ready to learn a new alphabet?</p>
+   <p>Simply create an account, log in and enroll an interactive course.</p>
+   <p>And guess what? It is for FREE!</p>
+
+{% endif %}
+
+</div>
 {% endblock %}
